@@ -94,6 +94,30 @@ const projects = [
   },
 ];
 
+const experiences = [
+  {
+    role: "Software Engineering Intern",
+    company: "Tech Company (Upcoming)",
+    period: "2026 — Present",
+    description:
+      "Seeking internship opportunities in full-stack web development to apply my skills in real-world projects.",
+  },
+  {
+    role: "Freelance Web Developer",
+    company: "Self-Employed",
+    period: "2024 — Present",
+    description:
+      "Built responsive websites and small full-stack apps for local clients using React, Spring Boot, and MySQL.",
+  },
+  {
+    role: "Group Project Lead",
+    company: "SLIIT — IT Project Module",
+    period: "2025",
+    description:
+      "Led a team of 4 to design and ship a full-stack academic project, handling architecture, code reviews, and demos.",
+  },
+];
+
 function Portfolio() {
   return (
     <div className="min-h-screen">
@@ -102,9 +126,44 @@ function Portfolio() {
       <About />
       <Skills />
       <Projects />
+      <Experience />
       <Contact />
       <Footer />
     </div>
+  );
+}
+
+function useTheme() {
+  const [isDark, setIsDark] = useState(true);
+  useEffect(() => {
+    const stored = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    const dark = stored ? stored === "dark" : true;
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+  }, []);
+  const toggle = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch {}
+      return next;
+    });
+  };
+  return { isDark, toggle };
+}
+
+function ThemeToggle({ className = "" }: { className?: string }) {
+  const { isDark, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className={`inline-flex items-center justify-center size-9 rounded-full border border-border hover:border-primary hover:text-primary transition-colors ${className}`}
+    >
+      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </button>
   );
 }
 
