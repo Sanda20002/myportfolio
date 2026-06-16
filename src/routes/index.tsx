@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Github,
   Linkedin,
@@ -13,6 +14,10 @@ import {
   ArrowDown,
   GraduationCap,
   MapPin,
+  Briefcase,
+  Calendar,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
