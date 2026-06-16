@@ -275,25 +275,34 @@ function About() {
           </div>
           <div className="space-y-4 text-muted-foreground leading-relaxed">
             <p>
-              I'm a third-year IT undergraduate at SLIIT with a strong focus on
-              full-stack web development. I enjoy building products end-to-end —
-              from designing clean UIs to architecting reliable backends.
+              I'm a 3rd year IT undergraduate at{" "}
+              <span className="text-foreground font-medium">SLIIT</span>,
+              currently in my 2nd semester, with a strong passion for{" "}
+              <span className="text-foreground font-medium">Web Development</span>{" "}
+              and{" "}
+              <span className="text-foreground font-medium">UI/UX Design</span>.
+              I work across both frontend and backend development using the{" "}
+              <span className="text-foreground font-medium">MERN Stack</span>{" "}
+              (MongoDB, Express, React, Node.js) and{" "}
+              <span className="text-foreground font-medium">Java Spring Boot</span>.
             </p>
             <p>
-              My core stack revolves around{" "}
-              <span className="text-foreground font-medium">Java</span>,{" "}
-              <span className="text-foreground font-medium">Python</span>,{" "}
-              <span className="text-foreground font-medium">React</span>,{" "}
-              <span className="text-foreground font-medium">Spring Boot</span>{" "}
-              and <span className="text-foreground font-medium">MySQL</span>. I
-              love learning new tools, collaborating with teams, and shipping
-              projects that actually solve problems.
+              What sets me apart is my ability to think like both a developer
+              and a designer — I don't just write code; I craft experiences
+              that users love. I've built several projects on GitHub, both
+              individually and in teams, which taught me how to collaborate
+              effectively, manage deadlines, and solve real-world problems.
+              These projects reflect my curiosity and commitment to clean,
+              maintainable code.
             </p>
             <p>
-              Outside of class, I'm usually working on side projects, exploring
-              open source, or sharpening my problem-solving on coding platforms.
+              Now, I'm actively looking for an internship where I can
+              contribute to meaningful projects, learn from industry
+              professionals, and take the next step in my journey toward
+              becoming a full-stack developer.
             </p>
           </div>
+
         </div>
       </div>
     </section>
