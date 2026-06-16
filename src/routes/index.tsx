@@ -40,7 +40,7 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
-const NAME = "Yasiru Perera";
+const NAME = "Sandamini Gamage";
 
 const skills = [
   { name: "Java", Icon: Coffee },
