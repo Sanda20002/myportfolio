@@ -169,18 +169,20 @@ function ThemeToggle({ className = "" }: { className?: string }) {
 
 function Nav() {
   const links = [
+    { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
+    { href: "#experience", label: "Experience" },
     { href: "#contact", label: "Contact" },
   ];
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/60 border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/50">
       <nav className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
         <a href="#home" className="font-display font-bold text-lg">
           <span className="text-gradient">{"<YP/>"}</span>
         </a>
-        <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        <ul className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} className="hover:text-primary transition-colors">
@@ -189,12 +191,7 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center rounded-full border border-primary/40 px-4 py-1.5 text-sm text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          Get in touch
-        </a>
+        <ThemeToggle />
       </nav>
     </header>
   );
