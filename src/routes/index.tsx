@@ -379,6 +379,46 @@ function Projects() {
   );
 }
 
+function Experience() {
+  return (
+    <section id="experience" className="py-24 px-6">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeading eyebrow="Journey" title="Experience" />
+        <div className="relative">
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
+          <div className="space-y-8">
+            {experiences.map((e, i) => (
+              <div
+                key={e.role}
+                className={`relative md:grid md:grid-cols-2 md:gap-8 ${
+                  i % 2 === 0 ? "" : "md:[direction:rtl]"
+                }`}
+              >
+                <div className={`pl-12 md:pl-0 ${i % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8 md:[direction:ltr]"}`}>
+                  <div className="absolute left-2.5 md:left-1/2 md:-translate-x-1/2 top-2 size-3 rounded-full bg-primary ring-4 ring-background" />
+                  <div className="rounded-2xl border border-border bg-card p-6 card-hover [direction:ltr] text-left">
+                    <div className="flex items-center gap-2 text-xs text-primary mb-2">
+                      <Calendar className="size-3.5" /> {e.period}
+                    </div>
+                    <h3 className="text-lg font-bold flex items-center gap-2">
+                      <Briefcase className="size-4 text-primary" /> {e.role}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-medium mt-1">{e.company}</p>
+                    <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                      {e.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden md:block" />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
 function Contact() {
   const links = [
     { Icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yasiru", href: "https://linkedin.com" },
