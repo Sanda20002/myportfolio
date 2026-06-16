@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from "react";
 import {
   Github,
   Linkedin,
@@ -13,6 +14,10 @@ import {
   ArrowDown,
   GraduationCap,
   MapPin,
+  Briefcase,
+  Calendar,
+  Sun,
+  Moon,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -89,6 +94,30 @@ const projects = [
   },
 ];
 
+const experiences = [
+  {
+    role: "Software Engineering Intern",
+    company: "Tech Company (Upcoming)",
+    period: "2026 — Present",
+    description:
+      "Seeking internship opportunities in full-stack web development to apply my skills in real-world projects.",
+  },
+  {
+    role: "Freelance Web Developer",
+    company: "Self-Employed",
+    period: "2024 — Present",
+    description:
+      "Built responsive websites and small full-stack apps for local clients using React, Spring Boot, and MySQL.",
+  },
+  {
+    role: "Group Project Lead",
+    company: "SLIIT — IT Project Module",
+    period: "2025",
+    description:
+      "Led a team of 4 to design and ship a full-stack academic project, handling architecture, code reviews, and demos.",
+  },
+];
+
 function Portfolio() {
   return (
     <div className="min-h-screen">
@@ -97,26 +126,63 @@ function Portfolio() {
       <About />
       <Skills />
       <Projects />
+      <Experience />
       <Contact />
       <Footer />
     </div>
   );
 }
 
+function useTheme() {
+  const [isDark, setIsDark] = useState(true);
+  useEffect(() => {
+    const stored = typeof window !== "undefined" ? localStorage.getItem("theme") : null;
+    const dark = stored ? stored === "dark" : true;
+    setIsDark(dark);
+    document.documentElement.classList.toggle("dark", dark);
+  }, []);
+  const toggle = () => {
+    setIsDark((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      try {
+        localStorage.setItem("theme", next ? "dark" : "light");
+      } catch {}
+      return next;
+    });
+  };
+  return { isDark, toggle };
+}
+
+function ThemeToggle({ className = "" }: { className?: string }) {
+  const { isDark, toggle } = useTheme();
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className={`inline-flex items-center justify-center size-9 rounded-full border border-border hover:border-primary hover:text-primary transition-colors ${className}`}
+    >
+      {isDark ? <Sun className="size-4" /> : <Moon className="size-4" />}
+    </button>
+  );
+}
+
 function Nav() {
   const links = [
+    { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
     { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
+    { href: "#experience", label: "Experience" },
     { href: "#contact", label: "Contact" },
   ];
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/60 border-b border-border/50">
+    <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/50">
       <nav className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
         <a href="#home" className="font-display font-bold text-lg">
           <span className="text-gradient">{"<YP/>"}</span>
         </a>
-        <ul className="hidden md:flex items-center gap-8 text-sm text-muted-foreground">
+        <ul className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} className="hover:text-primary transition-colors">
@@ -125,12 +191,7 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <a
-          href="#contact"
-          className="hidden md:inline-flex items-center rounded-full border border-primary/40 px-4 py-1.5 text-sm text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-        >
-          Get in touch
-        </a>
+        <ThemeToggle />
       </nav>
     </header>
   );
@@ -312,6 +373,46 @@ function Projects() {
               </div>
             </article>
           ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Experience() {
+  return (
+    <section id="experience" className="py-24 px-6">
+      <div className="mx-auto max-w-4xl">
+        <SectionHeading eyebrow="Journey" title="Experience" />
+        <div className="relative">
+          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
+          <div className="space-y-8">
+            {experiences.map((e, i) => (
+              <div
+                key={e.role}
+                className={`relative md:grid md:grid-cols-2 md:gap-8 ${
+                  i % 2 === 0 ? "" : "md:[direction:rtl]"
+                }`}
+              >
+                <div className={`pl-12 md:pl-0 ${i % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8 md:[direction:ltr]"}`}>
+                  <div className="absolute left-2.5 md:left-1/2 md:-translate-x-1/2 top-2 size-3 rounded-full bg-primary ring-4 ring-background" />
+                  <div className="rounded-2xl border border-border bg-card p-6 card-hover [direction:ltr] text-left">
+                    <div className="flex items-center gap-2 text-xs text-primary mb-2">
+                      <Calendar className="size-3.5" /> {e.period}
+                    </div>
+                    <h3 className="text-lg font-bold flex items-center gap-2">
+                      <Briefcase className="size-4 text-primary" /> {e.role}
+                    </h3>
+                    <p className="text-sm text-muted-foreground font-medium mt-1">{e.company}</p>
+                    <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
+                      {e.description}
+                    </p>
+                  </div>
+                </div>
+                <div className="hidden md:block" />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </section>
