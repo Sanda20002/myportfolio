@@ -18,6 +18,17 @@ import {
   Calendar,
   Sun,
   Moon,
+  Palette,
+  GitBranch,
+  Github as GithubIcon,
+  Terminal,
+  Figma,
+  Send,
+  Globe,
+  Boxes,
+  Leaf,
+  Wind,
+  Layers,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
@@ -42,13 +53,42 @@ export const Route = createFileRoute("/")({
 
 const NAME = "Sandamini Gamage";
 
-const skills = [
-  { name: "Java", Icon: Coffee },
-  { name: "Python", Icon: FileCode2 },
-  { name: "React", Icon: Atom },
-  { name: "Spring Boot", Icon: Server },
-  { name: "MySQL", Icon: Database },
-  { name: "JavaScript", Icon: Code2 },
+const skillCategories = [
+  {
+    title: "Frontend",
+    Icon: Palette,
+    items: [
+      { name: "React", Icon: Atom },
+      { name: "JavaScript", Icon: Code2 },
+      { name: "HTML5", Icon: Globe },
+      { name: "CSS3", Icon: Layers },
+      { name: "Tailwind CSS", Icon: Wind },
+      { name: "UI/UX Design", Icon: Figma },
+    ],
+  },
+  {
+    title: "Backend",
+    Icon: Server,
+    items: [
+      { name: "Node.js", Icon: Boxes },
+      { name: "Express", Icon: Send },
+      { name: "Java", Icon: Coffee },
+      { name: "Spring Boot", Icon: Leaf },
+      { name: "MongoDB", Icon: Database },
+      { name: "REST APIs", Icon: Server },
+    ],
+  },
+  {
+    title: "Tools",
+    Icon: Terminal,
+    items: [
+      { name: "Git", Icon: GitBranch },
+      { name: "GitHub", Icon: GithubIcon },
+      { name: "VS Code", Icon: FileCode2 },
+      { name: "Figma", Icon: Figma },
+      { name: "Postman", Icon: Send },
+    ],
+  },
 ];
 
 const projects = [
