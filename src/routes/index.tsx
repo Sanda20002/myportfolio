@@ -352,16 +352,31 @@ function About() {
 function Skills() {
   return (
     <section id="skills" className="py-24 px-6">
-      <div className="mx-auto max-w-5xl">
-        <SectionHeading eyebrow="Toolkit" title="Skills & Technologies" />
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-          {skills.map(({ name, Icon }) => (
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow="Skills & Expertise" title="Technologies I work with" />
+        <div className="grid md:grid-cols-3 gap-6">
+          {skillCategories.map(({ title, Icon: CatIcon, items }) => (
             <div
-              key={name}
-              className="group flex flex-col items-center justify-center gap-3 rounded-2xl border border-border bg-card p-6 card-hover"
+              key={title}
+              className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 card-hover"
             >
-              <Icon className="size-10 text-primary group-hover:scale-110 transition-transform" />
-              <span className="text-sm font-medium">{name}</span>
+              <div className="flex items-center gap-3 mb-6">
+                <div className="inline-flex items-center justify-center size-10 rounded-xl bg-primary/10 border border-primary/20">
+                  <CatIcon className="size-5 text-primary" />
+                </div>
+                <h3 className="text-lg font-bold">{title}</h3>
+              </div>
+              <div className="flex flex-wrap gap-2">
+                {items.map(({ name, Icon }) => (
+                  <span
+                    key={name}
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-3 py-1.5 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
+                  >
+                    <Icon className="size-3.5 text-primary group-hover:scale-110 transition-transform" />
+                    {name}
+                  </span>
+                ))}
+              </div>
             </div>
           ))}
         </div>
