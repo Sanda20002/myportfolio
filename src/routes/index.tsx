@@ -29,6 +29,8 @@ import {
   Leaf,
   Wind,
   Layers,
+  Check,
+  Target,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
