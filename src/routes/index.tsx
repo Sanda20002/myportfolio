@@ -652,35 +652,143 @@ function Experience() {
 }
 
 function Contact() {
-  const links = [
-    { Icon: Linkedin, label: "LinkedIn", value: "linkedin.com/in/yasiru", href: "https://linkedin.com" },
-    { Icon: Github, label: "GitHub", value: "github.com/yasiru", href: "https://github.com" },
-    { Icon: Mail, label: "Email", value: "hello@example.com", href: "mailto:hello@example.com" },
+  const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [submitted, setSubmitted] = useState(false);
+
+  const details = [
+    { Icon: User, label: "Name", value: "G.P.G.Hasini Sandamini Gamage" },
+    { Icon: Mail, label: "Email", value: "sandaminigamage12@gmail.com", href: "mailto:sandaminigamage12@gmail.com" },
+    { Icon: Phone, label: "Phone", value: "076-2098904", href: "tel:076-2098904" },
+    { Icon: MapPin, label: "Address", value: "\"Sandamina\", Ellagama, Diyathalawa." },
   ];
+
+  const validate = () => {
+    const next: Record<string, string> = {};
+    if (!form.name.trim()) next.name = "Name is required";
+    if (!form.email.trim()) next.email = "Email is required";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = "Please enter a valid email";
+    if (!form.subject.trim()) next.subject = "Subject is required";
+    if (!form.message.trim()) next.message = "Message is required";
+    setErrors(next);
+    return Object.keys(next).length === 0;
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!validate()) return;
+    setSubmitted(true);
+    setForm({ name: "", email: "", subject: "", message: "" });
+    setTimeout(() => setSubmitted(false), 4000);
+  };
+
   return (
     <section id="contact" className="py-24 px-6">
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading eyebrow="Contact" title="Let's build something" />
-        <p className="text-center text-muted-foreground max-w-xl mx-auto mb-12">
-          I'm open to internship opportunities, freelance projects, and
-          collaborations. Feel free to reach out.
-        </p>
-        <div className="grid sm:grid-cols-3 gap-4">
-          {links.map(({ Icon, label, value, href }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noreferrer"
-              className="flex flex-col items-center gap-3 rounded-2xl border border-border bg-card p-6 text-center card-hover"
-            >
-              <Icon className="size-7 text-primary" />
+      <div className="mx-auto max-w-6xl">
+        <SectionHeading eyebrow="Contact" title="Let's Connect" />
+        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+          {/* Left Column — Contact Form */}
+          <div className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 md:p-8">
+            <div className="mb-6">
+              <h3 className="text-2xl font-bold">Get in Touch</h3>
+              <p className="mt-2 text-sm text-muted-foreground">
+                Have a question or just want to say hi? I'll try my best to get back to you!
+              </p>
+            </div>
+            <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <p className="font-semibold">{label}</p>
-                <p className="text-xs text-muted-foreground mt-1 break-all">{value}</p>
+                <label htmlFor="name" className="sr-only">Name</label>
+                <input
+                  id="name"
+                  type="text"
+                  placeholder="Your Name"
+                  value={form.name}
+                  onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
+                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+                {errors.name && <p className="mt-1.5 text-xs text-red-400">{errors.name}</p>}
               </div>
+              <div>
+                <label htmlFor="email" className="sr-only">Email</label>
+                <input
+                  id="email"
+                  type="email"
+                  placeholder="email@example.com"
+                  value={form.email}
+                  onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
+                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+                {errors.email && <p className="mt-1.5 text-xs text-red-400">{errors.email}</p>}
+              </div>
+              <div>
+                <label htmlFor="subject" className="sr-only">Subject</label>
+                <input
+                  id="subject"
+                  type="text"
+                  placeholder="Project Inquiry"
+                  value={form.subject}
+                  onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
+                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                />
+                {errors.subject && <p className="mt-1.5 text-xs text-red-400">{errors.subject}</p>}
+              </div>
+              <div>
+                <label htmlFor="message" className="sr-only">Message</label>
+                <textarea
+                  id="message"
+                  rows={5}
+                  placeholder="Tell me about your project..."
+                  value={form.message}
+                  onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
+                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
+                />
+                {errors.message && <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>}
+              </div>
+              <button
+                type="submit"
+                className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:scale-[1.01] glow-shadow"
+              >
+                <Send className="size-4" /> Send Message
+              </button>
+              {submitted && (
+                <p className="text-center text-sm text-primary">Thanks! Your message has been sent.</p>
+              )}
+            </form>
+          </div>
+
+          {/* Right Column — Personal Details */}
+          <div className="space-y-6">
+            <div className="rounded-2xl border border-border bg-[#12123a] p-6 md:p-8">
+              <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
+              <div className="space-y-5">
+                {details.map(({ Icon, label, value, href }) => (
+                  <div key={label} className="flex items-start gap-4">
+                    <div className="inline-flex shrink-0 items-center justify-center size-10 rounded-xl bg-primary/10 border border-primary/20">
+                      <Icon className="size-5 text-primary" />
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-xs uppercase tracking-wider text-muted-foreground mb-0.5">{label}</p>
+                      {href ? (
+                        <a href={href} className="text-sm font-medium text-foreground hover:text-primary transition-colors break-all">
+                          {value}
+                        </a>
+                      ) : (
+                        <p className="text-sm font-medium text-foreground break-words">{value}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <a
+              href="/cv.pdf"
+              download
+              className="flex items-center justify-center gap-2 rounded-xl bg-primary px-6 py-4 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:scale-[1.01] glow-shadow"
+            >
+              <Download className="size-5" /> Download CV
             </a>
-          ))}
+          </div>
         </div>
       </div>
     </section>
