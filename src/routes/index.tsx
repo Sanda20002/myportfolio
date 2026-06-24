@@ -36,17 +36,17 @@ import {
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Yasiru Perera — IT Undergraduate Portfolio" },
+      { title: "Sandamini Gamage — IT Undergraduate Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of a 3rd year IT undergraduate at SLIIT — passionate about web development, building with Java, Spring Boot, React, Python, and MySQL.",
+          "Portfolio of a 3rd year IT undergraduate at SLIIT — passionate about web development, UI/UX design, and building with the MERN Stack, Java Spring Boot, and modern full-stack technologies.",
       },
-      { property: "og:title", content: "Yasiru Perera — IT Undergraduate Portfolio" },
+      { property: "og:title", content: "Sandamini Gamage — IT Undergraduate Portfolio" },
       {
         property: "og:description",
         content:
-          "3rd year SLIIT IT undergraduate building modern web apps with React, Spring Boot, and more.",
+          "3rd year SLIIT IT undergraduate building modern web apps with React, Spring Boot, Node.js, and more.",
       },
     ],
   }),
