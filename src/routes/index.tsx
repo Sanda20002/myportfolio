@@ -31,6 +31,9 @@ import {
   Layers,
   Check,
   Target,
+  User,
+  Phone,
+  Download,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
