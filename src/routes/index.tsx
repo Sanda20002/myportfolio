@@ -488,58 +488,123 @@ function Skills() {
 function Projects() {
   return (
     <section id="projects" className="py-24 px-6">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <SectionHeading eyebrow="Portfolio" title="Featured Projects" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
-            <article
-              key={p.title}
-              className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover"
-            >
-              <div className="relative h-40 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent flex items-center justify-center overflow-hidden">
-                <span className="font-display text-6xl font-bold text-primary/30 group-hover:scale-110 transition-transform">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-1">
-                  {p.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {p.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-4 text-sm">
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Github className="size-4" /> Code
-                  </a>
-                  <a
-                    href={p.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <ExternalLink className="size-4" /> Live Demo
-                  </a>
-                </div>
-              </div>
-            </article>
+            <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+  const isDemoReady = project.demo !== "Coming Soon";
+
+  return (
+    <article
+      className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+      style={{ borderColor: `${project.accent}20` }}
+    >
+      <div
+        className="relative h-44 flex flex-col justify-center px-6 overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${project.accent}20 0%, ${project.accent}10 50%, transparent 100%)`,
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `radial-gradient(circle at top right, ${project.accent}, transparent 60%)`,
+          }}
+        />
+        <div className="relative z-10">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h3 className="text-xl font-bold leading-tight">
+                <span style={{ color: project.accent }}>{project.title}</span>
+              </h3>
+              {project.subtitle && (
+                <p className="text-sm font-medium text-muted-foreground mt-1">
+                  {project.subtitle}
+                </p>
+              )}
+            </div>
+            {project.featured && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
+                <Target className="size-3" /> Featured
+              </span>
+            )}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Project #{String(index + 1).padStart(2, "0")}
+          </p>
+        </div>
+      </div>
+
+      <div className="p-6 flex flex-col flex-1">
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tech.map((t) => {
+            const color = techColors[t] || "#00d4ff";
+            return (
+              <span
+                key={t}
+                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold border border-white/10 hover:scale-105 transition-transform"
+                style={{
+                  backgroundColor: `${color}15`,
+                  color,
+                  borderColor: `${color}25`,
+                }}
+              >
+                <span
+                  className="size-1.5 rounded-full"
+                  style={{ backgroundColor: color }}
+                />
+                {t}
+              </span>
+            );
+          })}
+        </div>
+
+        <div className="border-t border-border/50 pt-4 mb-4 flex-1">
+          <ul className="space-y-2">
+            {project.features.map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                <Check className="size-3.5 mt-0.5 shrink-0" style={{ color: project.accent }} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex gap-3 mt-auto">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg bg-primary/10 text-primary px-3 py-2 text-xs font-semibold hover:bg-primary/20 transition-colors"
+          >
+            <Github className="size-4" /> GitHub
+          </a>
+          <button
+            disabled={!isDemoReady}
+            className={`inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
+              isDemoReady
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+            }`}
+          >
+            <ExternalLink className="size-4" /> {isDemoReady ? "Live Demo" : "Coming Soon"}
+          </button>
+        </div>
+      </div>
+    </article>
   );
 }
 
