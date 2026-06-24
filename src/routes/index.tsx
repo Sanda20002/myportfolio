@@ -29,22 +29,24 @@ import {
   Leaf,
   Wind,
   Layers,
+  Check,
+  Target,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Yasiru Perera — IT Undergraduate Portfolio" },
+      { title: "Sandamini Gamage — IT Undergraduate Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of a 3rd year IT undergraduate at SLIIT — passionate about web development, building with Java, Spring Boot, React, Python, and MySQL.",
+          "Portfolio of a 3rd year IT undergraduate at SLIIT — passionate about web development, UI/UX design, and building with the MERN Stack, Java Spring Boot, and modern full-stack technologies.",
       },
-      { property: "og:title", content: "Yasiru Perera — IT Undergraduate Portfolio" },
+      { property: "og:title", content: "Sandamini Gamage — IT Undergraduate Portfolio" },
       {
         property: "og:description",
         content:
-          "3rd year SLIIT IT undergraduate building modern web apps with React, Spring Boot, and more.",
+          "3rd year SLIIT IT undergraduate building modern web apps with React, Spring Boot, Node.js, and more.",
       },
     ],
   }),
@@ -93,46 +95,144 @@ const skillCategories = [
 
 const projects = [
   {
-    title: "EduSphere — Learning Platform",
+    title: "UniHub",
+    subtitle: "Peer-to-Peer Learning Platform",
     description:
-      "A full-stack online learning platform with course management, video lessons, and progress tracking.",
-    tech: ["React", "Spring Boot", "MySQL", "Tailwind"],
-    github: "https://github.com",
-    demo: "https://example.com",
+      "A modern, full-stack learning platform combining Facebook-like social interaction with YouTube-style video learning. Empowers university students to collaborate through live streaming, resource sharing, quizzes, and community discussions. Production ready with 50+ API endpoints.",
+    tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase", "Node.js"],
+    github: "https://github.com/Sanda20002/UNIHUB",
+    demo: "Coming Soon",
+    featured: true,
+    accent: "#3B82F6",
+    features: [
+      "Live streaming with RTMP/OBS",
+      "Study library with file uploads",
+      "Quiz system with auto-scoring",
+      "Real-time chat",
+      "Notification system",
+      "OTP authentication",
+      "Dark/Light mode",
+    ],
   },
   {
-    title: "FinTrack — Expense Manager",
+    title: "Library Book Tracking System",
     description:
-      "Personal finance tracker with charts, budgets, and category-based analytics.",
-    tech: ["React", "Node.js", "MongoDB"],
-    github: "https://github.com",
-    demo: "https://example.com",
+      "A full-stack web application for managing library books, tracking borrow/return transactions, and maintaining inventory records with user authentication using JWT.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "CSS3", "JWT"],
+    github: "https://github.com/Sanda20002/Library-Book-Tracking-System",
+    demo: "Coming Soon",
+    accent: "#10B981",
+    features: [
+      "Book inventory management (CRUD)",
+      "Borrow and return tracking",
+      "User authentication (Login/Register)",
+      "Transaction history",
+      "Search and filter books",
+      "Responsive design",
+    ],
   },
   {
-    title: "MediConnect — Hospital System",
+    title: "Smart Campus Operations Hub",
     description:
-      "Hospital management system with patient records, appointments, and role-based access.",
-    tech: ["Java", "Spring Boot", "MySQL", "Thymeleaf"],
-    github: "https://github.com",
-    demo: "https://example.com",
+      "A complete web-based system for managing facility and asset bookings and maintenance/incident handling for a university campus. Production ready with Spring Boot backend and React frontend.",
+    tech: ["Spring Boot 3.2", "Java 17", "MongoDB", "React 18", "OAuth2", "JWT", "Zustand"],
+    github: "https://github.com/Sanda20002/smartspace",
+    demo: "Coming Soon",
+    featured: true,
+    accent: "#F59E0B",
+    features: [
+      "Facilities & Assets catalogue",
+      "Booking management with conflict prevention",
+      "Maintenance & Incident ticketing",
+      "Real-time notifications",
+      "Google OAuth2 authentication",
+      "Role-based access (USER/ADMIN)",
+    ],
   },
   {
-    title: "DevBlog — Markdown Blog",
+    title: "FarmNex",
+    subtitle: "Smart Farm Management System",
     description:
-      "A developer blog with markdown editor, tags, and syntax-highlighted code blocks.",
-    tech: ["React", "TypeScript", "Vite"],
-    github: "https://github.com",
-    demo: "https://example.com",
+      "A full-stack MERN application integrating IoT sensors for soil moisture monitoring. Features secure JWT authentication, Stripe payment system, and OTP verification with email-based notifications.",
+    tech: ["MongoDB", "Express.js", "React", "Node.js", "JWT", "Stripe", "IoT Sensors"],
+    github: "https://github.com/Sanda20002/FarmNex",
+    demo: "Coming Soon",
+    accent: "#22C55E",
+    features: [
+      "IoT sensor integration for soil moisture monitoring",
+      "JWT authentication",
+      "Stripe payment system",
+      "OTP verification",
+      "Email notifications",
+      "Real-time data monitoring",
+    ],
   },
   {
-    title: "SmartParking — IoT Dashboard",
+    title: "Online Property Sales System",
     description:
-      "Real-time parking slot monitoring dashboard with sensor data visualization.",
-    tech: ["Python", "Flask", "React", "MQTT"],
-    github: "https://github.com",
-    demo: "https://example.com",
+      "A comprehensive system for managing rental property administration and enhancing tenant communication. Built with PHP and MySQL.",
+    tech: ["PHP", "JavaScript", "HTML5", "CSS3", "MySQL"],
+    github: "https://github.com/Sanda20002/Online-Property-Sales_System",
+    demo: "Coming Soon",
+    accent: "#8B5CF6",
+    features: [
+      "Property listings management",
+      "Tenant communication system",
+      "Rental administration",
+      "User authentication",
+      "Property search and filtering",
+    ],
+  },
+  {
+    title: "Question Bank System",
+    description:
+      "A Java-based system for managing and organizing question banks for educational purposes. Built with Eclipse and Java EE technologies.",
+    tech: ["Java", "J2EE", "Eclipse", "Servlet", "JSP"],
+    github: "https://github.com/Sanda20002/QuestionBank2",
+    demo: "Coming Soon",
+    accent: "#EF4444",
+    features: [
+      "Question creation and management",
+      "Category organization",
+      "Search and filter questions",
+      "Educational assessment support",
+    ],
   },
 ];
+
+const techColors: Record<string, string> = {
+  React: "#61DAFB",
+  "React 18": "#61DAFB",
+  "React 19": "#61DAFB",
+  "Next.js": "#000000",
+  "Next.js 16": "#000000",
+  "Spring Boot": "#6DB33F",
+  "Spring Boot 3.2": "#6DB33F",
+  "Node.js": "#339933",
+  MongoDB: "#47A248",
+  Java: "#007396",
+  "Java 17": "#007396",
+  J2EE: "#007396",
+  Servlet: "#007396",
+  JSP: "#007396",
+  PHP: "#777BB4",
+  TypeScript: "#3178C6",
+  JavaScript: "#F7DF1E",
+  "Tailwind CSS": "#06B6D4",
+  PostgreSQL: "#336791",
+  Supabase: "#3ECF8E",
+  Express: "#000000",
+  "Express.js": "#000000",
+  JWT: "#000000",
+  OAuth2: "#000000",
+  Stripe: "#635BFF",
+  MySQL: "#4479A1",
+  HTML5: "#E34F26",
+  CSS3: "#1572B6",
+  Eclipse: "#2C2255",
+  Zustand: "#000000",
+  "IoT Sensors": "#00d4ff",
+};
 
 const experiences = [
   {
@@ -388,58 +488,123 @@ function Skills() {
 function Projects() {
   return (
     <section id="projects" className="py-24 px-6">
-      <div className="mx-auto max-w-6xl">
+      <div className="mx-auto max-w-7xl">
         <SectionHeading eyebrow="Portfolio" title="Featured Projects" />
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {projects.map((p, i) => (
-            <article
-              key={p.title}
-              className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover"
-            >
-              <div className="relative h-40 bg-gradient-to-br from-primary/20 via-primary/5 to-transparent flex items-center justify-center overflow-hidden">
-                <span className="font-display text-6xl font-bold text-primary/30 group-hover:scale-110 transition-transform">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-              </div>
-              <div className="p-6 flex flex-col flex-1">
-                <h3 className="text-xl font-bold mb-2">{p.title}</h3>
-                <p className="text-sm text-muted-foreground mb-4 flex-1">
-                  {p.description}
-                </p>
-                <div className="flex flex-wrap gap-2 mb-5">
-                  {p.tech.map((t) => (
-                    <span
-                      key={t}
-                      className="text-xs px-2.5 py-1 rounded-full bg-primary/10 text-primary border border-primary/20"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-4 text-sm">
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <Github className="size-4" /> Code
-                  </a>
-                  <a
-                    href={p.demo}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-muted-foreground hover:text-primary transition-colors"
-                  >
-                    <ExternalLink className="size-4" /> Live Demo
-                  </a>
-                </div>
-              </div>
-            </article>
+            <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
       </div>
     </section>
+  );
+}
+
+function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
+  const isDemoReady = project.demo !== "Coming Soon";
+
+  return (
+    <article
+      className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
+      style={{ borderColor: `${project.accent}20` }}
+    >
+      <div
+        className="relative h-44 flex flex-col justify-center px-6 overflow-hidden"
+        style={{
+          background: `linear-gradient(135deg, ${project.accent}20 0%, ${project.accent}10 50%, transparent 100%)`,
+        }}
+      >
+        <div
+          className="absolute inset-0 opacity-20"
+          style={{
+            background: `radial-gradient(circle at top right, ${project.accent}, transparent 60%)`,
+          }}
+        />
+        <div className="relative z-10">
+          <div className="flex items-start justify-between gap-3">
+            <div>
+              <h3 className="text-xl font-bold leading-tight">
+                <span style={{ color: project.accent }}>{project.title}</span>
+              </h3>
+              {project.subtitle && (
+                <p className="text-sm font-medium text-muted-foreground mt-1">
+                  {project.subtitle}
+                </p>
+              )}
+            </div>
+            {project.featured && (
+              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
+                <Target className="size-3" /> Featured
+              </span>
+            )}
+          </div>
+          <p className="mt-3 text-xs text-muted-foreground">
+            Project #{String(index + 1).padStart(2, "0")}
+          </p>
+        </div>
+      </div>
+
+      <div className="p-6 flex flex-col flex-1">
+        <p className="text-sm text-muted-foreground leading-relaxed mb-4">
+          {project.description}
+        </p>
+
+        <div className="flex flex-wrap gap-2 mb-4">
+          {project.tech.map((t) => {
+            const color = techColors[t] || "#00d4ff";
+            return (
+              <span
+                key={t}
+                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold border border-white/10 hover:scale-105 transition-transform"
+                style={{
+                  backgroundColor: `${color}15`,
+                  color,
+                  borderColor: `${color}25`,
+                }}
+              >
+                <span
+                  className="size-1.5 rounded-full"
+                  style={{ backgroundColor: color }}
+                />
+                {t}
+              </span>
+            );
+          })}
+        </div>
+
+        <div className="border-t border-border/50 pt-4 mb-4 flex-1">
+          <ul className="space-y-2">
+            {project.features.map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
+                <Check className="size-3.5 mt-0.5 shrink-0" style={{ color: project.accent }} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="flex gap-3 mt-auto">
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg bg-primary/10 text-primary px-3 py-2 text-xs font-semibold hover:bg-primary/20 transition-colors"
+          >
+            <Github className="size-4" /> GitHub
+          </a>
+          <button
+            disabled={!isDemoReady}
+            className={`inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
+              isDemoReady
+                ? "bg-primary text-primary-foreground hover:bg-primary/90"
+                : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+            }`}
+          >
+            <ExternalLink className="size-4" /> {isDemoReady ? "Live Demo" : "Coming Soon"}
+          </button>
+        </div>
+      </div>
+    </article>
   );
 }
 
