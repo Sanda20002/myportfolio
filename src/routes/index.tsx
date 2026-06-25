@@ -105,7 +105,7 @@ const skillCategories = [
     ],
   },
   {
-    title: "Tools",
+    title: "Tools & Technologies",
     Icon: Terminal,
     items: [
       { name: "Git", Icon: GitBranch },
@@ -666,6 +666,59 @@ function About() {
 }
 
 function Skills() {
+  const leftSkillCards = [
+    {
+      title: skillCategories[0].title,
+      Icon: skillCategories[0].Icon,
+      items: skillCategories[0].items,
+      className: "xl:col-start-1 xl:col-span-4 xl:row-start-1",
+    },
+    {
+      title: skillCategories[1].title,
+      Icon: skillCategories[1].Icon,
+      items: skillCategories[1].items,
+      className: "xl:col-start-5 xl:col-span-4 xl:row-start-1",
+    },
+    {
+      title: skillCategories[2].title,
+      Icon: skillCategories[2].Icon,
+      items: skillCategories[2].items,
+      className: "xl:col-start-9 xl:col-span-4 xl:row-start-1",
+    },
+    {
+      title: skillCategories[3].title,
+      Icon: skillCategories[3].Icon,
+      items: skillCategories[3].items,
+      className: "xl:col-start-1 xl:col-span-4 xl:row-start-2",
+    },
+    {
+      title: extraSkillCategories[1].title,
+      Icon: extraSkillCategories[1].Icon,
+      items: extraSkillCategories[1].items,
+      className: "xl:col-start-1 xl:col-span-4 xl:row-start-3 md:col-span-2",
+    },
+    {
+      title: skillCategories[4].title,
+      Icon: skillCategories[4].Icon,
+      items: skillCategories[4].items,
+      className: "xl:col-start-5 xl:col-span-4 xl:row-start-2",
+    },
+    {
+      title: extraSkillCategories[0].title,
+      Icon: extraSkillCategories[0].Icon,
+      items: extraSkillCategories[0].items,
+      className: "xl:col-start-9 xl:col-span-4 xl:row-start-2",
+    },
+  ] as const;
+  const professionalMetrics = extraSkillCategories[2].items.map(({ name, Icon }) => {
+    const [label, valuePart] = name.split(" - ");
+    return {
+      label,
+      value: Number.parseInt(valuePart?.replace("%", "") ?? "0", 10) || 0,
+      Icon,
+    };
+  });
+
   return (
     <section id="skills" className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
@@ -674,46 +727,64 @@ function Skills() {
           title="Technical Skills"
           subtitle="Technologies I work with"
         />
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[...skillCategories, ...extraSkillCategories].map(({ title, Icon: CatIcon, items }) => (
-            <div
-              key={title}
-              className="rounded-2xl border border-border bg-card/60 backdrop-blur p-5 card-hover"
-            >
-              <div className="flex items-center gap-3 mb-5">
-                <div className="inline-flex items-center justify-center size-9 rounded-xl bg-primary/10 border border-primary/20">
-                  <CatIcon className="size-4 text-primary" />
+        <div className="grid gap-8 xl:grid-cols-[minmax(0,1fr)_360px] xl:items-start">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-12 xl:auto-rows-min xl:gap-8">
+            {leftSkillCards.map(({ title, Icon: CatIcon, items, className }) => {
+              const isSoftwareEngineering = title === "Software Engineering";
+
+              return (
+              <div
+                key={title}
+                className={`rounded-2xl border border-border bg-card/60 p-6 backdrop-blur card-hover ${className} ${isSoftwareEngineering ? "pb-5" : ""}`}
+              >
+                <div className="mb-5 flex items-center gap-3">
+                  <div className="inline-flex size-9 items-center justify-center rounded-xl border border-primary/20 bg-primary/10">
+                    <CatIcon className="size-4 text-primary" />
+                  </div>
+                  <h3 className="text-base font-bold">{title}</h3>
                 </div>
-                <h3 className="text-base font-bold">{title}</h3>
-              </div>
-              <div className="flex flex-col gap-3">
-                <div className="flex flex-wrap gap-2">
-                  {items.map(({ name, Icon }) => (
+                <div className={isSoftwareEngineering ? "grid grid-cols-2 gap-2" : "flex flex-wrap gap-2"}>
+                  {items.map(({ name, Icon }, itemIndex) => (
                     <span
                       key={name}
-                      className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-2.5 py-1 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
+                      className={`group inline-flex min-w-0 items-center gap-1.5 rounded-full border border-border bg-background/50 px-2.5 py-1 text-xs font-medium transition-all hover:-translate-y-0.5 hover:border-primary hover:bg-primary/10 hover:text-primary cursor-default ${isSoftwareEngineering && itemIndex === 1 ? "justify-center" : ""} ${isSoftwareEngineering && itemIndex === 4 ? "col-span-2 justify-center" : ""}`}
                     >
-                      <Icon className="size-3 text-primary group-hover:scale-110 transition-transform" />
+                      <Icon className="size-3 text-primary transition-transform group-hover:scale-110" />
                       {name}
                     </span>
                   ))}
                 </div>
-                {title === "Professional Skills" && (
-                  <div className="mt-2 space-y-2">
-                    {[{k: 'Adaptability', v:95},{k:'Teamwork',v:95},{k:'Innovation',v:90},{k:'Creativity',v:85},{k:'Time Management',v:85}].map((p) => (
-                      <div key={p.k}>
-                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
-                          <span>{p.k}</span>
-                          <span className="font-semibold">{p.v}%</span>
-                        </div>
-                        <div className="skill-progress"><i style={{ width: `${p.v}%` }} /></div>
-                      </div>
-                    ))}
+              </div>
+              );
+            })}
+          </div>
+
+          <div>
+            <div className="rounded-2xl border border-border bg-card/60 p-6 backdrop-blur card-hover">
+              <div className="mb-5 flex items-center gap-3">
+                <div className="inline-flex size-9 items-center justify-center rounded-xl border border-primary/20 bg-primary/10">
+                  <Star className="size-4 text-primary" />
+                </div>
+                <h3 className="text-base font-bold">Professional Skills</h3>
+              </div>
+              <div className="space-y-4">
+                {professionalMetrics.map((metric) => (
+                  <div key={metric.label}>
+                    <div className="mb-1 flex items-center justify-between text-xs text-muted-foreground">
+                      <span className="inline-flex items-center gap-1.5">
+                        <metric.Icon className="size-3 text-primary" />
+                        {metric.label}
+                      </span>
+                      <span className="font-semibold">{metric.value}%</span>
+                    </div>
+                    <div className="skill-progress">
+                      <i style={{ width: `${metric.value}%` }} />
+                    </div>
                   </div>
-                )}
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
       </div>
     </section>
