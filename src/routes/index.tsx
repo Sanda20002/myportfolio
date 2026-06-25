@@ -11,11 +11,8 @@ import {
   Atom,
   Coffee,
   FileCode2,
-  ArrowDown,
   GraduationCap,
   MapPin,
-  Briefcase,
-  Calendar,
   Sun,
   Moon,
   Palette,
@@ -30,22 +27,23 @@ import {
   Wind,
   Layers,
   Check,
-  Target,
   User,
   Phone,
   Download,
+  Star,
+  Sparkles,
 } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Sandamini Gamage — IT Undergraduate Portfolio" },
+      { title: "Hasini Sandamini — IT Undergraduate Portfolio" },
       {
         name: "description",
         content:
-          "Portfolio of a 3rd year IT undergraduate at SLIIT — passionate about web development, UI/UX design, and building with the MERN Stack, Java Spring Boot, and modern full-stack technologies.",
+          "Portfolio of Hasini Sandamini, a 3rd year IT undergraduate at SLIIT — full-stack web development with React, Spring Boot, Node.js, and modern technologies.",
       },
-      { property: "og:title", content: "Sandamini Gamage — IT Undergraduate Portfolio" },
+      { property: "og:title", content: "Hasini Sandamini — IT Undergraduate Portfolio" },
       {
         property: "og:description",
         content:
@@ -56,7 +54,11 @@ export const Route = createFileRoute("/")({
   component: Portfolio,
 });
 
-const NAME = "Sandamini Gamage";
+const NAME = "Hasini Sandamini";
+const PHOTO = "https://i.postimg.cc/CKz8rB02/Chat-GPT-Image-Jun-24-2026-02-02-49-PM.png";
+const GITHUB_URL = "https://github.com/Sanda20002";
+const LINKEDIN_URL = "https://www.linkedin.com/in/hasini-sandamini-47bb513a5";
+const EMAIL = "sandaminigamage12@gmail.com";
 
 const skillCategories = [
   {
@@ -79,8 +81,16 @@ const skillCategories = [
       { name: "Express", Icon: Send },
       { name: "Java", Icon: Coffee },
       { name: "Spring Boot", Icon: Leaf },
-      { name: "MongoDB", Icon: Database },
       { name: "REST APIs", Icon: Server },
+    ],
+  },
+  {
+    title: "Database",
+    Icon: Database,
+    items: [
+      { name: "MongoDB", Icon: Database },
+      { name: "MySQL", Icon: Database },
+      { name: "PostgreSQL", Icon: Database },
     ],
   },
   {
@@ -96,121 +106,91 @@ const skillCategories = [
   },
 ];
 
-const projects = [
+const FILTERS = [
+  "ALL",
+  "REACT / NODE.JS",
+  "SPRING BOOT",
+  "MERN STACK",
+  "JAVA",
+  "PHP / DATABASES",
+] as const;
+type Filter = (typeof FILTERS)[number];
+
+type Project = {
+  title: string;
+  subtitle?: string;
+  category: Exclude<Filter, "ALL">;
+  description: string;
+  tech: string[];
+  github: string;
+  featured?: boolean;
+  accent: string;
+};
+
+const projects: Project[] = [
   {
     title: "UniHub",
     subtitle: "Peer-to-Peer Learning Platform",
-    description:
-      "A modern, full-stack learning platform combining Facebook-like social interaction with YouTube-style video learning. Empowers university students to collaborate through live streaming, resource sharing, quizzes, and community discussions. Production ready with 50+ API endpoints.",
-    tech: ["Next.js 16", "React 19", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase", "Node.js"],
-    github: "https://github.com/Sanda20002/UNIHUB",
-    demo: "Coming Soon",
+    category: "REACT / NODE.JS",
     featured: true,
+    description:
+      "A modern learning platform with live streaming, resource sharing, quizzes, and community discussions. Production ready with 50+ API endpoints.",
+    tech: ["Next.js", "React", "TypeScript", "Tailwind CSS", "PostgreSQL", "Supabase"],
+    github: "https://github.com/Sanda20002/UNIHUB",
     accent: "#3B82F6",
-    features: [
-      "Live streaming with RTMP/OBS",
-      "Study library with file uploads",
-      "Quiz system with auto-scoring",
-      "Real-time chat",
-      "Notification system",
-      "OTP authentication",
-      "Dark/Light mode",
-    ],
   },
   {
     title: "Library Book Tracking System",
+    category: "MERN STACK",
     description:
-      "A full-stack web application for managing library books, tracking borrow/return transactions, and maintaining inventory records with user authentication using JWT.",
-    tech: ["React", "Node.js", "Express", "MongoDB", "JavaScript", "CSS3", "JWT"],
+      "Full-stack library management app for tracking books, borrow/return transactions with JWT authentication.",
+    tech: ["React", "Node.js", "Express", "MongoDB", "JWT"],
     github: "https://github.com/Sanda20002/Library-Book-Tracking-System",
-    demo: "Coming Soon",
     accent: "#10B981",
-    features: [
-      "Book inventory management (CRUD)",
-      "Borrow and return tracking",
-      "User authentication (Login/Register)",
-      "Transaction history",
-      "Search and filter books",
-      "Responsive design",
-    ],
   },
   {
     title: "Smart Campus Operations Hub",
-    description:
-      "A complete web-based system for managing facility and asset bookings and maintenance/incident handling for a university campus. Production ready with Spring Boot backend and React frontend.",
-    tech: ["Spring Boot 3.2", "Java 17", "MongoDB", "React 18", "OAuth2", "JWT", "Zustand"],
-    github: "https://github.com/Sanda20002/smartspace",
-    demo: "Coming Soon",
+    category: "SPRING BOOT",
     featured: true,
+    description:
+      "Web-based system for managing facility bookings and maintenance incidents for university campuses.",
+    tech: ["Spring Boot", "Java 17", "MongoDB", "React", "OAuth2", "JWT"],
+    github: "https://github.com/Sanda20002/smartspace",
     accent: "#F59E0B",
-    features: [
-      "Facilities & Assets catalogue",
-      "Booking management with conflict prevention",
-      "Maintenance & Incident ticketing",
-      "Real-time notifications",
-      "Google OAuth2 authentication",
-      "Role-based access (USER/ADMIN)",
-    ],
   },
   {
     title: "FarmNex",
-    subtitle: "Smart Farm Management System",
+    subtitle: "Smart Farm Management",
+    category: "MERN STACK",
     description:
-      "A full-stack MERN application integrating IoT sensors for soil moisture monitoring. Features secure JWT authentication, Stripe payment system, and OTP verification with email-based notifications.",
-    tech: ["MongoDB", "Express.js", "React", "Node.js", "JWT", "Stripe", "IoT Sensors"],
+      "MERN application integrating IoT sensors for soil moisture monitoring with Stripe payment and OTP verification.",
+    tech: ["MongoDB", "Express", "React", "Node.js", "JWT", "Stripe", "IoT"],
     github: "https://github.com/Sanda20002/FarmNex",
-    demo: "Coming Soon",
     accent: "#22C55E",
-    features: [
-      "IoT sensor integration for soil moisture monitoring",
-      "JWT authentication",
-      "Stripe payment system",
-      "OTP verification",
-      "Email notifications",
-      "Real-time data monitoring",
-    ],
   },
   {
     title: "Online Property Sales System",
-    description:
-      "A comprehensive system for managing rental property administration and enhancing tenant communication. Built with PHP and MySQL.",
+    category: "PHP / DATABASES",
+    description: "Rental property administration and tenant communication system.",
     tech: ["PHP", "JavaScript", "HTML5", "CSS3", "MySQL"],
     github: "https://github.com/Sanda20002/Online-Property-Sales_System",
-    demo: "Coming Soon",
     accent: "#8B5CF6",
-    features: [
-      "Property listings management",
-      "Tenant communication system",
-      "Rental administration",
-      "User authentication",
-      "Property search and filtering",
-    ],
   },
   {
     title: "Question Bank System",
+    category: "JAVA",
     description:
-      "A Java-based system for managing and organizing question banks for educational purposes. Built with Eclipse and Java EE technologies.",
-    tech: ["Java", "J2EE", "Eclipse", "Servlet", "JSP"],
+      "Java-based system for managing and organizing question banks for educational purposes.",
+    tech: ["Java", "J2EE", "Servlet", "JSP", "Eclipse"],
     github: "https://github.com/Sanda20002/QuestionBank2",
-    demo: "Coming Soon",
     accent: "#EF4444",
-    features: [
-      "Question creation and management",
-      "Category organization",
-      "Search and filter questions",
-      "Educational assessment support",
-    ],
   },
 ];
 
 const techColors: Record<string, string> = {
   React: "#61DAFB",
-  "React 18": "#61DAFB",
-  "React 19": "#61DAFB",
-  "Next.js": "#000000",
-  "Next.js 16": "#000000",
+  "Next.js": "#8b5cf6",
   "Spring Boot": "#6DB33F",
-  "Spring Boot 3.2": "#6DB33F",
   "Node.js": "#339933",
   MongoDB: "#47A248",
   Java: "#007396",
@@ -224,40 +204,127 @@ const techColors: Record<string, string> = {
   "Tailwind CSS": "#06B6D4",
   PostgreSQL: "#336791",
   Supabase: "#3ECF8E",
-  Express: "#000000",
-  "Express.js": "#000000",
-  JWT: "#000000",
-  OAuth2: "#000000",
+  Express: "#9CA3AF",
+  JWT: "#9CA3AF",
+  OAuth2: "#9CA3AF",
   Stripe: "#635BFF",
   MySQL: "#4479A1",
   HTML5: "#E34F26",
   CSS3: "#1572B6",
   Eclipse: "#2C2255",
-  Zustand: "#000000",
-  "IoT Sensors": "#00d4ff",
+  IoT: "#00d4ff",
 };
 
-const experiences = [
+type ExperienceItem = {
+  role: string;
+  project: string;
+  year: string;
+  focus: string;
+  summary: string;
+  contributions: string[];
+  tech: string[];
+};
+
+const fullStackExperience: ExperienceItem[] = [
   {
-    role: "Software Engineering Intern",
-    company: "Tech Company (Upcoming)",
-    period: "2026 — Present",
-    description:
-      "Seeking internship opportunities in full-stack web development to apply my skills in real-world projects.",
+    role: "Full-Stack Developer",
+    project: "UniHub - Peer-to-Peer Learning Platform",
+    year: "2026",
+    focus: "Live Streaming, Resource Sharing, Quiz System, Real-time Chat, Notification Module",
+    summary:
+      "Worked on a production-ready learning platform built to empower university students through live streaming, resource sharing, quizzes, and community discussions.",
+    contributions: [
+      "Implemented live streaming with RTMP/OBS integration",
+      "Built study library with file uploads (PDF, PPT, Video, Audio)",
+      "Added quiz system with auto-scoring and analytics",
+      "Implemented real-time chat with optimistic UI",
+      "Built notification system with email reminders",
+      "Created REST APIs using Next.js API Routes",
+    ],
+    tech: ["Next.js", "React", "TypeScript", "PostgreSQL", "Supabase", "Tailwind CSS"],
   },
   {
-    role: "Freelance Web Developer",
-    company: "Self-Employed",
-    period: "2024 — Present",
-    description:
-      "Built responsive websites and small full-stack apps for local clients using React, Spring Boot, and MySQL.",
+    role: "Full-Stack Developer",
+    project: "Smart Campus Operations Hub",
+    year: "2026",
+    focus: "Facility Booking, Maintenance Ticketing, OAuth2.0 Authentication, Role Management",
+    summary:
+      "Worked on a production-inspired university management platform built to streamline campus operations through role-based access, secure authentication, and notification workflows.",
+    contributions: [
+      "Implemented role-based access control (USER/ADMIN)",
+      "Added Google OAuth2.0 authentication with JWT",
+      "Built facility booking management with conflict prevention",
+      "Created maintenance ticketing system with comments",
+      "Implemented notification module with read/unread status",
+      "Built REST APIs using Spring Boot",
+    ],
+    tech: ["Spring Boot", "Java 17", "MongoDB", "React", "OAuth2.0", "JWT"],
   },
   {
-    role: "Group Project Lead",
-    company: "SLIIT — IT Project Module",
-    period: "2025",
-    description:
-      "Led a team of 4 to design and ship a full-stack academic project, handling architecture, code reviews, and demos.",
+    role: "Full-Stack / IoT Developer",
+    project: "FarmNex - Smart Farm Management System",
+    year: "2025",
+    focus: "IoT Integration, Payment Processing, OTP Verification, Notification Module",
+    summary:
+      "Worked on a smart farming platform designed to support data-driven agriculture and farm management.",
+    contributions: [
+      "Integrated IoT sensors for soil moisture monitoring",
+      "Implemented JWT authentication and OTP verification",
+      "Added Stripe payment system",
+      "Built inventory, order, and smart farm modules",
+      "Supported Gmail-based notification flows",
+    ],
+    tech: ["MongoDB", "Express", "React", "Node.js", "JWT", "Stripe", "IoT"],
+  },
+  {
+    role: "Full-Stack Developer",
+    project: "Library Book Tracking System",
+    year: "2025 (Individual Project)",
+    focus: "Book Management, Borrow/Return Tracking, User Authentication",
+    summary: "Built a full-stack library management application with secure JWT authentication.",
+    contributions: [
+      "Built book inventory management (CRUD operations)",
+      "Implemented borrow and return tracking",
+      "Added user authentication with JWT",
+      "Created transaction history for each user",
+    ],
+    tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "CSS3"],
+  },
+  {
+    role: "Full-Stack Developer",
+    project: "Online Property Sales System",
+    year: "2024",
+    focus: "Property Management, Tenant Communication, Rental Administration",
+    summary:
+      "Developed a comprehensive system for managing rental property administration and enhancing tenant communication.",
+    contributions: [
+      "Built property listings management",
+      "Implemented tenant communication system",
+      "Added rental administration features",
+      "Created user authentication and property search",
+    ],
+    tech: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"],
+  },
+];
+
+const javaExperience: ExperienceItem[] = [
+  {
+    role: "Full-Stack Developer",
+    project: "Online Exam Management System",
+    year: "2025",
+    focus: "Exam Creation, Student Management, Auto-Grading, Result Analytics",
+    summary:
+      "Developed a web-based system for creating, managing, and grading online examinations with secure authentication and real-time results.",
+    contributions: [
+      "Built exam creation and management (CRUD operations)",
+      "Implemented student registration and secure login",
+      "Added multiple-choice question support with auto-grading",
+      "Created result analytics and performance reports",
+      "Applied OOP concepts including inheritance and encapsulation",
+      "Connected application with database using JDBC",
+      "Designed responsive UI using HTML, CSS, and JavaScript",
+    ],
+    tech: ["Java", "J2EE", "Servlet", "JSP", "MySQL", "JDBC", "HTML5", "CSS3", "JavaScript"],
   },
 ];
 
@@ -314,18 +381,18 @@ function Nav() {
   const links = [
     { href: "#home", label: "Home" },
     { href: "#about", label: "About" },
-    { href: "#skills", label: "Skills" },
     { href: "#projects", label: "Projects" },
+    { href: "#skills", label: "Skills" },
     { href: "#experience", label: "Experience" },
     { href: "#contact", label: "Contact" },
   ];
   return (
     <header className="fixed top-0 left-0 right-0 z-50 backdrop-blur-md bg-background/70 border-b border-border/50">
-      <nav className="mx-auto max-w-6xl flex items-center justify-between px-6 py-4">
-        <a href="#home" className="font-display font-bold text-lg">
-          <span className="text-gradient">{"<YP/>"}</span>
+      <nav className="mx-auto max-w-7xl flex items-center justify-between gap-4 px-6 py-3">
+        <a href="#home" className="font-display font-bold text-lg shrink-0">
+          <span className="text-gradient">{"<HS/>"}</span>
         </a>
-        <ul className="hidden md:flex items-center gap-7 text-sm text-muted-foreground">
+        <ul className="hidden lg:flex items-center gap-6 text-sm text-muted-foreground">
           {links.map((l) => (
             <li key={l.href}>
               <a href={l.href} className="hover:text-primary transition-colors">
@@ -334,7 +401,16 @@ function Nav() {
             </li>
           ))}
         </ul>
-        <ThemeToggle />
+        <div className="flex items-center gap-3">
+          <a
+            href="/cv.pdf"
+            download
+            className="hidden sm:inline-flex items-center gap-1.5 rounded-full border border-primary text-primary px-4 py-1.5 text-xs font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
+          >
+            <Download className="size-3.5" /> Download CV
+          </a>
+          <ThemeToggle />
+        </div>
       </nav>
     </header>
   );
@@ -342,58 +418,89 @@ function Nav() {
 
 function Hero() {
   return (
-    <section id="home" className="relative pt-36 pb-24 px-6">
-      <div className="mx-auto max-w-4xl text-center animate-fade-in">
-        <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs text-primary mb-8">
-          <span className="size-2 rounded-full bg-primary animate-pulse" />
-          Available for internships & freelance
-        </div>
-        <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
-          Hi, I'm <span className="text-gradient">{NAME}</span>
-        </h1>
-        <p className="mt-6 text-lg md:text-xl text-primary font-medium">
-          SLIIT — IT Undergraduate | 3rd Year
-        </p>
-        <p className="mt-6 mx-auto max-w-2xl text-base md:text-lg text-muted-foreground leading-relaxed">
-          Passionate about web development and crafting clean, performant user
-          experiences. I love turning ideas into real products using modern
-          full-stack technologies.
-        </p>
-        <div className="mt-10 flex flex-wrap justify-center gap-4">
-          <a
-            href="#projects"
-            className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:scale-105 transition-transform glow-shadow"
+    <section id="home" className="relative pt-32 pb-20 px-6">
+      <div className="mx-auto max-w-6xl grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center animate-fade-in">
+        {/* Photo */}
+        <div className="relative mx-auto md:mx-0">
+          <div
+            className="absolute inset-0 rounded-full blur-2xl opacity-60"
+            style={{
+              background:
+                "radial-gradient(circle, color-mix(in oklab, var(--primary) 60%, transparent), transparent 70%)",
+            }}
+          />
+          <div
+            className="relative rounded-full p-[3px]"
+            style={{
+              background:
+                "conic-gradient(from 180deg at 50% 50%, var(--primary), transparent, var(--primary))",
+            }}
           >
-            View My Work <ArrowDown className="size-4" />
-          </a>
-          <a
-            href="#contact"
-            className="inline-flex items-center gap-2 rounded-full border border-border px-6 py-3 text-sm font-semibold hover:border-primary hover:text-primary transition-colors"
-          >
-            Contact Me
-          </a>
+            <img
+              src={PHOTO}
+              alt={NAME}
+              className="size-[150px] md:size-[200px] rounded-full object-cover bg-background border-4 border-background"
+              loading="eager"
+            />
+          </div>
         </div>
-        <div className="mt-12 flex justify-center gap-6 text-muted-foreground">
-          <a href="https://github.com" target="_blank" rel="noreferrer" className="hover:text-primary hover:scale-110 transition-all">
-            <Github className="size-5" />
-          </a>
-          <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="hover:text-primary hover:scale-110 transition-all">
-            <Linkedin className="size-5" />
-          </a>
-          <a href="mailto:hello@example.com" className="hover:text-primary hover:scale-110 transition-all">
-            <Mail className="size-5" />
-          </a>
+
+        {/* Text */}
+        <div className="text-center md:text-left">
+          <div className="inline-flex items-center gap-2 rounded-full border border-primary/30 bg-primary/5 px-4 py-1.5 text-xs text-primary mb-5">
+            <span className="size-2 rounded-full bg-primary animate-pulse" />
+            Available for internships & freelance
+          </div>
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight">
+            Hi, I'm <span className="text-gradient">{NAME}</span>
+          </h1>
+          <p className="mt-4 text-lg md:text-xl text-primary font-medium">
+            SLIIT — IT Undergraduate | 3rd Year
+          </p>
+          <p className="mt-5 max-w-xl mx-auto md:mx-0 text-base md:text-lg text-muted-foreground leading-relaxed">
+            Passionate about web development and crafting clean, performant user
+            experiences. I love turning ideas into real products using modern
+            full-stack technologies.
+          </p>
+          <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
+            <a
+              href="#projects"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:scale-105 transition-transform glow-shadow"
+            >
+              View My Work
+            </a>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-2 rounded-full border border-primary text-primary px-6 py-3 text-sm font-semibold hover:bg-primary hover:text-primary-foreground transition-colors"
+            >
+              Contact Me
+            </a>
+          </div>
+          <div className="mt-8 flex justify-center md:justify-start gap-5 text-muted-foreground">
+            <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-primary hover:scale-110 transition-all">
+              <Github className="size-5" />
+            </a>
+            <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="hover:text-primary hover:scale-110 transition-all">
+              <Linkedin className="size-5" />
+            </a>
+            <a href={`mailto:${EMAIL}`} aria-label="Email" className="hover:text-primary hover:scale-110 transition-all">
+              <Mail className="size-5" />
+            </a>
+          </div>
         </div>
       </div>
     </section>
   );
 }
 
-function SectionHeading({ eyebrow, title }: { eyebrow: string; title: string }) {
+function SectionHeading({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle?: string }) {
   return (
     <div className="mb-12 text-center">
       <p className="text-sm uppercase tracking-[0.3em] text-primary mb-3">{eyebrow}</p>
       <h2 className="text-4xl md:text-5xl font-bold">{title}</h2>
+      {subtitle && (
+        <p className="mt-4 text-muted-foreground max-w-2xl mx-auto">{subtitle}</p>
+      )}
       <div className="mx-auto mt-4 h-px w-20 bg-gradient-to-r from-transparent via-primary to-transparent" />
     </div>
   );
@@ -435,17 +542,14 @@ function About() {
               that users love. I've built several projects on GitHub, both
               individually and in teams, which taught me how to collaborate
               effectively, manage deadlines, and solve real-world problems.
-              These projects reflect my curiosity and commitment to clean,
-              maintainable code.
             </p>
             <p>
               Now, I'm actively looking for an internship where I can
               contribute to meaningful projects, learn from industry
-              professionals, and take the next step in my journey toward
-              becoming a full-stack developer.
+              professionals, and take the next step toward becoming a
+              full-stack developer.
             </p>
           </div>
-
         </div>
       </div>
     </section>
@@ -456,26 +560,30 @@ function Skills() {
   return (
     <section id="skills" className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
-        <SectionHeading eyebrow="Skills & Expertise" title="Technologies I work with" />
-        <div className="grid md:grid-cols-3 gap-6">
+        <SectionHeading
+          eyebrow="Skills & Expertise"
+          title="Technical Skills"
+          subtitle="Technologies I work with"
+        />
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
           {skillCategories.map(({ title, Icon: CatIcon, items }) => (
             <div
               key={title}
-              className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 card-hover"
+              className="rounded-2xl border border-border bg-card/60 backdrop-blur p-5 card-hover"
             >
-              <div className="flex items-center gap-3 mb-6">
-                <div className="inline-flex items-center justify-center size-10 rounded-xl bg-primary/10 border border-primary/20">
-                  <CatIcon className="size-5 text-primary" />
+              <div className="flex items-center gap-3 mb-5">
+                <div className="inline-flex items-center justify-center size-9 rounded-xl bg-primary/10 border border-primary/20">
+                  <CatIcon className="size-4 text-primary" />
                 </div>
-                <h3 className="text-lg font-bold">{title}</h3>
+                <h3 className="text-base font-bold">{title}</h3>
               </div>
               <div className="flex flex-wrap gap-2">
                 {items.map(({ name, Icon }) => (
                   <span
                     key={name}
-                    className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-3 py-1.5 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
+                    className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-2.5 py-1 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
                   >
-                    <Icon className="size-3.5 text-primary group-hover:scale-110 transition-transform" />
+                    <Icon className="size-3 text-primary group-hover:scale-110 transition-transform" />
                     {name}
                   </span>
                 ))}
@@ -489,12 +597,40 @@ function Skills() {
 }
 
 function Projects() {
+  const [filter, setFilter] = useState<Filter>("ALL");
+  const filtered = filter === "ALL" ? projects : projects.filter((p) => p.category === filter);
+
   return (
     <section id="projects" className="py-24 px-6">
       <div className="mx-auto max-w-7xl">
-        <SectionHeading eyebrow="Portfolio" title="Featured Projects" />
+        <SectionHeading
+          eyebrow="Portfolio"
+          title="Projects Showcase"
+          subtitle="A curated selection of projects demonstrating architecture, UI/UX, and engineering craft."
+        />
+
+        {/* Filter buttons */}
+        <div className="flex flex-wrap justify-center gap-2 mb-10">
+          {FILTERS.map((f) => {
+            const active = f === filter;
+            return (
+              <button
+                key={f}
+                onClick={() => setFilter(f)}
+                className={`rounded-full px-4 py-1.5 text-xs font-semibold uppercase tracking-wider border transition-all ${
+                  active
+                    ? "bg-primary text-primary-foreground border-primary glow-shadow"
+                    : "border-border text-muted-foreground hover:border-primary hover:text-primary"
+                }`}
+              >
+                {f}
+              </button>
+            );
+          })}
+        </div>
+
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {projects.map((p, i) => (
+          {filtered.map((p, i) => (
             <ProjectCard key={p.title} project={p} index={i} />
           ))}
         </div>
@@ -503,18 +639,16 @@ function Projects() {
   );
 }
 
-function ProjectCard({ project, index }: { project: typeof projects[0]; index: number }) {
-  const isDemoReady = project.demo !== "Coming Soon";
-
+function ProjectCard({ project, index }: { project: Project; index: number }) {
   return (
     <article
-      className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover transition-all duration-300 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5"
-      style={{ borderColor: `${project.accent}20` }}
+      className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover transition-all duration-300 hover:-translate-y-1"
+      style={{ borderColor: `${project.accent}25` }}
     >
       <div
-        className="relative h-44 flex flex-col justify-center px-6 overflow-hidden"
+        className="relative h-36 flex flex-col justify-center px-5 overflow-hidden"
         style={{
-          background: `linear-gradient(135deg, ${project.accent}20 0%, ${project.accent}10 50%, transparent 100%)`,
+          background: `linear-gradient(135deg, ${project.accent}25 0%, ${project.accent}10 50%, transparent 100%)`,
         }}
       >
         <div
@@ -525,68 +659,65 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
         />
         <div className="relative z-10">
           <div className="flex items-start justify-between gap-3">
-            <div>
-              <h3 className="text-xl font-bold leading-tight">
-                <span style={{ color: project.accent }}>{project.title}</span>
+            <div className="min-w-0">
+              <h3 className="text-lg font-bold leading-tight truncate" style={{ color: project.accent }}>
+                {project.title}
               </h3>
               {project.subtitle && (
-                <p className="text-sm font-medium text-muted-foreground mt-1">
+                <p className="text-xs font-medium text-muted-foreground mt-0.5 truncate">
                   {project.subtitle}
                 </p>
               )}
             </div>
             {project.featured && (
-              <span className="inline-flex items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
-                <Target className="size-3" /> Featured
+              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
+                <Star className="size-3" /> Featured
               </span>
             )}
           </div>
-          <p className="mt-3 text-xs text-muted-foreground">
-            Project #{String(index + 1).padStart(2, "0")}
+          <p className="mt-2 text-[10px] text-muted-foreground">
+            #{String(index + 1).padStart(2, "0")}
           </p>
         </div>
       </div>
 
-      <div className="p-6 flex flex-col flex-1">
+      <div className="p-5 flex flex-col flex-1">
+        <span
+          className="inline-flex self-start items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider mb-3"
+          style={{
+            color: project.accent,
+            borderColor: `${project.accent}40`,
+            backgroundColor: `${project.accent}10`,
+          }}
+        >
+          <Sparkles className="size-3" /> {project.category}
+        </span>
+
         <p className="text-sm text-muted-foreground leading-relaxed mb-4">
           {project.description}
         </p>
 
-        <div className="flex flex-wrap gap-2 mb-4">
+        <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.map((t) => {
             const color = techColors[t] || "#00d4ff";
             return (
               <span
                 key={t}
-                className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-[11px] font-semibold border border-white/10 hover:scale-105 transition-transform"
+                className="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-[10px] font-semibold border hover:scale-105 transition-transform"
                 style={{
                   backgroundColor: `${color}15`,
                   color,
                   borderColor: `${color}25`,
                 }}
               >
-                <span
-                  className="size-1.5 rounded-full"
-                  style={{ backgroundColor: color }}
-                />
+                <span className="size-1.5 rounded-full" style={{ backgroundColor: color }} />
                 {t}
               </span>
             );
           })}
         </div>
 
-        <div className="border-t border-border/50 pt-4 mb-4 flex-1">
-          <ul className="space-y-2">
-            {project.features.map((feature, idx) => (
-              <li key={idx} className="flex items-start gap-2 text-xs text-muted-foreground">
-                <Check className="size-3.5 mt-0.5 shrink-0" style={{ color: project.accent }} />
-                <span>{feature}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div className="flex gap-3 mt-auto">
+        <div className="flex gap-2 mt-auto">
           <a
             href={project.github}
             target="_blank"
@@ -596,14 +727,10 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
             <Github className="size-4" /> GitHub
           </a>
           <button
-            disabled={!isDemoReady}
-            className={`inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold transition-colors ${
-              isDemoReady
-                ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                : "bg-muted text-muted-foreground cursor-not-allowed opacity-60"
-            }`}
+            disabled
+            className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold bg-muted text-muted-foreground cursor-not-allowed opacity-60"
           >
-            <ExternalLink className="size-4" /> {isDemoReady ? "Live Demo" : "Coming Soon"}
+            <ExternalLink className="size-4" /> Coming Soon
           </button>
         </div>
       </div>
@@ -611,39 +738,93 @@ function ProjectCard({ project, index }: { project: typeof projects[0]; index: n
   );
 }
 
+function ExperienceCard({ item }: { item: ExperienceItem }) {
+  return (
+    <div className="rounded-2xl border border-border bg-card p-6 card-hover">
+      <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
+        <h4 className="text-lg font-bold text-primary">{item.role}</h4>
+        <span className="text-xs font-semibold text-muted-foreground">{item.year}</span>
+      </div>
+      <p className="text-base font-bold text-foreground">{item.project}</p>
+      <p className="mt-3 text-sm">
+        <span className="font-semibold text-foreground">Focus:</span>{" "}
+        <span className="text-muted-foreground">{item.focus}</span>
+      </p>
+      <p className="mt-3 text-sm text-muted-foreground leading-relaxed">{item.summary}</p>
+
+      <div className="mt-5">
+        <p className="text-xs font-bold uppercase tracking-wider text-primary mb-2">
+          Key Contributions
+        </p>
+        <ul className="space-y-1.5">
+          {item.contributions.map((c) => (
+            <li key={c} className="flex items-start gap-2 text-sm text-muted-foreground">
+              <Check className="size-3.5 mt-1 shrink-0 text-primary" />
+              <span>{c}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <div className="mt-5 flex flex-wrap gap-1.5">
+        {item.tech.map((t) => {
+          const color = techColors[t] || "#00d4ff";
+          return (
+            <span
+              key={t}
+              className="inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-semibold border"
+              style={{
+                backgroundColor: `${color}15`,
+                color,
+                borderColor: `${color}25`,
+              }}
+            >
+              {t}
+            </span>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function Experience() {
   return (
     <section id="experience" className="py-24 px-6">
-      <div className="mx-auto max-w-4xl">
-        <SectionHeading eyebrow="Journey" title="Experience" />
-        <div className="relative">
-          <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-px bg-gradient-to-b from-primary/40 via-primary/20 to-transparent" />
-          <div className="space-y-8">
-            {experiences.map((e, i) => (
-              <div
-                key={e.role}
-                className={`relative md:grid md:grid-cols-2 md:gap-8 ${
-                  i % 2 === 0 ? "" : "md:[direction:rtl]"
-                }`}
-              >
-                <div className={`pl-12 md:pl-0 ${i % 2 === 0 ? "md:pr-8 md:text-right" : "md:pl-8 md:[direction:ltr]"}`}>
-                  <div className="absolute left-2.5 md:left-1/2 md:-translate-x-1/2 top-2 size-3 rounded-full bg-primary ring-4 ring-background" />
-                  <div className="rounded-2xl border border-border bg-card p-6 card-hover [direction:ltr] text-left">
-                    <div className="flex items-center gap-2 text-xs text-primary mb-2">
-                      <Calendar className="size-3.5" /> {e.period}
-                    </div>
-                    <h3 className="text-lg font-bold flex items-center gap-2">
-                      <Briefcase className="size-4 text-primary" /> {e.role}
-                    </h3>
-                    <p className="text-sm text-muted-foreground font-medium mt-1">{e.company}</p>
-                    <p className="text-sm text-muted-foreground mt-3 leading-relaxed">
-                      {e.description}
-                    </p>
-                  </div>
-                </div>
-                <div className="hidden md:block" />
-              </div>
-            ))}
+      <div className="mx-auto max-w-5xl">
+        <SectionHeading eyebrow="Journey" title="Experience & Projects" />
+
+        <div className="space-y-14">
+          {/* Full-Stack */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-2xl">💻</span>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                FULL-STACK DEVELOPMENT
+              </h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-primary/40 to-transparent" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              {fullStackExperience.map((item) => (
+                <ExperienceCard key={item.project} item={item} />
+              ))}
+            </div>
+          </div>
+
+          {/* Java */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-2xl">☕</span>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                JAVA APPLICATION DEVELOPMENT
+              </h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-primary/40 to-transparent" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              {javaExperience.map((item) => (
+                <ExperienceCard key={item.project} item={item} />
+              ))}
+            </div>
           </div>
         </div>
       </div>
@@ -657,10 +838,10 @@ function Contact() {
   const [submitted, setSubmitted] = useState(false);
 
   const details = [
-    { Icon: User, label: "Name", value: "G.P.G.Hasini Sandamini Gamage" },
-    { Icon: Mail, label: "Email", value: "sandaminigamage12@gmail.com", href: "mailto:sandaminigamage12@gmail.com" },
-    { Icon: Phone, label: "Phone", value: "076-2098904", href: "tel:076-2098904" },
-    { Icon: MapPin, label: "Address", value: "\"Sandamina\", Ellagama, Diyathalawa." },
+    { Icon: User, label: "Name", value: "G P G Hasini Sandamini Gamage" },
+    { Icon: Mail, label: "Email", value: EMAIL, href: `mailto:${EMAIL}` },
+    { Icon: Phone, label: "Phone", value: "076-2098904", href: "tel:0762098904" },
+    { Icon: MapPin, label: "Address", value: "Sandamina, Ellagama, Diyathalawa" },
   ];
 
   const validate = () => {
@@ -682,13 +863,16 @@ function Contact() {
     setTimeout(() => setSubmitted(false), 4000);
   };
 
+  const inputCls =
+    "w-full rounded-xl border border-border bg-background px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20";
+
   return (
     <section id="contact" className="py-24 px-6">
       <div className="mx-auto max-w-6xl">
         <SectionHeading eyebrow="Contact" title="Let's Connect" />
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
-          {/* Left Column — Contact Form */}
-          <div className="rounded-2xl border border-border bg-card/60 backdrop-blur p-6 md:p-8">
+          {/* Left — form */}
+          <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
             <div className="mb-6">
               <h3 className="text-2xl font-bold">Get in Touch</h3>
               <p className="mt-2 text-sm text-muted-foreground">
@@ -697,52 +881,44 @@ function Contact() {
             </div>
             <form onSubmit={handleSubmit} className="space-y-4" noValidate>
               <div>
-                <label htmlFor="name" className="sr-only">Name</label>
                 <input
-                  id="name"
                   type="text"
                   placeholder="Your Name"
                   value={form.name}
                   onChange={(e) => setForm((f) => ({ ...f, name: e.target.value }))}
-                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className={inputCls}
                 />
-                {errors.name && <p className="mt-1.5 text-xs text-red-400">{errors.name}</p>}
+                {errors.name && <p className="mt-1.5 text-xs text-destructive">{errors.name}</p>}
               </div>
               <div>
-                <label htmlFor="email" className="sr-only">Email</label>
                 <input
-                  id="email"
                   type="email"
                   placeholder="email@example.com"
                   value={form.email}
                   onChange={(e) => setForm((f) => ({ ...f, email: e.target.value }))}
-                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className={inputCls}
                 />
-                {errors.email && <p className="mt-1.5 text-xs text-red-400">{errors.email}</p>}
+                {errors.email && <p className="mt-1.5 text-xs text-destructive">{errors.email}</p>}
               </div>
               <div>
-                <label htmlFor="subject" className="sr-only">Subject</label>
                 <input
-                  id="subject"
                   type="text"
                   placeholder="Project Inquiry"
                   value={form.subject}
                   onChange={(e) => setForm((f) => ({ ...f, subject: e.target.value }))}
-                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20"
+                  className={inputCls}
                 />
-                {errors.subject && <p className="mt-1.5 text-xs text-red-400">{errors.subject}</p>}
+                {errors.subject && <p className="mt-1.5 text-xs text-destructive">{errors.subject}</p>}
               </div>
               <div>
-                <label htmlFor="message" className="sr-only">Message</label>
                 <textarea
-                  id="message"
                   rows={5}
                   placeholder="Tell me about your project..."
                   value={form.message}
                   onChange={(e) => setForm((f) => ({ ...f, message: e.target.value }))}
-                  className="w-full rounded-xl border border-border bg-[#12123a]/80 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 outline-none transition-all focus:border-primary focus:ring-2 focus:ring-primary/20 resize-none"
+                  className={`${inputCls} resize-none`}
                 />
-                {errors.message && <p className="mt-1.5 text-xs text-red-400">{errors.message}</p>}
+                {errors.message && <p className="mt-1.5 text-xs text-destructive">{errors.message}</p>}
               </div>
               <button
                 type="submit"
@@ -756,9 +932,9 @@ function Contact() {
             </form>
           </div>
 
-          {/* Right Column — Personal Details */}
+          {/* Right — info */}
           <div className="space-y-6">
-            <div className="rounded-2xl border border-border bg-[#12123a] p-6 md:p-8">
+            <div className="rounded-2xl border border-border bg-card p-6 md:p-8">
               <h3 className="text-2xl font-bold mb-6">Contact Information</h3>
               <div className="space-y-5">
                 {details.map(({ Icon, label, value, href }) => (
@@ -788,6 +964,18 @@ function Contact() {
             >
               <Download className="size-5" /> Download CV
             </a>
+
+            <div className="flex justify-center gap-4">
+              <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub" className="inline-flex items-center justify-center size-11 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary hover:-translate-y-0.5 transition-all">
+                <Github className="size-5" />
+              </a>
+              <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="inline-flex items-center justify-center size-11 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary hover:-translate-y-0.5 transition-all">
+                <Linkedin className="size-5" />
+              </a>
+              <a href={`mailto:${EMAIL}`} aria-label="Email" className="inline-flex items-center justify-center size-11 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary hover:-translate-y-0.5 transition-all">
+                <Mail className="size-5" />
+              </a>
+            </div>
           </div>
         </div>
       </div>
@@ -797,8 +985,23 @@ function Contact() {
 
 function Footer() {
   return (
-    <footer className="border-t border-border/50 py-8 px-6 text-center text-sm text-muted-foreground">
-      © {new Date().getFullYear()} {NAME}. Built with React & Tailwind.
+    <footer className="border-t border-border/50 py-10 px-6">
+      <div className="mx-auto max-w-6xl flex flex-col sm:flex-row items-center justify-between gap-4">
+        <p className="text-sm text-muted-foreground">
+          © {new Date().getFullYear()} {NAME}. All rights reserved.
+        </p>
+        <div className="flex items-center gap-3">
+          <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub" className="inline-flex items-center justify-center size-9 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+            <Github className="size-4" />
+          </a>
+          <a href={LINKEDIN_URL} target="_blank" rel="noreferrer" aria-label="LinkedIn" className="inline-flex items-center justify-center size-9 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+            <Linkedin className="size-4" />
+          </a>
+          <a href={`mailto:${EMAIL}`} aria-label="Email" className="inline-flex items-center justify-center size-9 rounded-full border border-border text-muted-foreground hover:text-primary hover:border-primary transition-colors">
+            <Mail className="size-4" />
+          </a>
+        </div>
+      </div>
     </footer>
   );
 }
