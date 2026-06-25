@@ -34,6 +34,8 @@ import {
   Sparkles,
 } from "lucide-react";
 
+import { AnimatedBackground } from "../components/AnimatedBackground";
+
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
@@ -379,15 +381,18 @@ const javaExperience: ExperienceItem[] = [
 function Portfolio() {
   useScrollReveal();
   return (
-    <div className="min-h-screen">
-      <Nav />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Experience />
-      <Contact />
-      <Footer />
+    <div className="relative min-h-screen overflow-x-clip">
+      <AnimatedBackground />
+      <div className="relative z-10">
+        <Nav />
+        <Hero />
+        <About />
+        <Skills />
+        <Projects />
+        <Experience />
+        <Contact />
+        <Footer />
+      </div>
     </div>
   );
 }
@@ -521,7 +526,6 @@ function Hero() {
   const typed = useTyping(titles);
   return (
     <section id="home" className="relative pt-32 pb-20 px-6 overflow-hidden">
-      <div className="hero-bg absolute inset-0 -z-10" />
       <div className="mx-auto max-w-6xl grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center reveal">
         {/* Photo */}
         <div className="relative mx-auto md:mx-0 flex items-center">
