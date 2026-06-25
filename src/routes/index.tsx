@@ -55,7 +55,7 @@ export const Route = createFileRoute("/")({
 });
 
 const NAME = "Hasini Sandamini";
-const PHOTO = "https://i.postimg.cc/CKz8rB02/Chat-GPT-Image-Jun-24-2026-02-02-49-PM.png";
+const PHOTO = "https://i.postimg.cc/rwp88rQ7/Whats-App-Image-2026-06-24-at-22-02-34.jpg";
 const GITHUB_URL = "https://github.com/Sanda20002";
 const LINKEDIN_URL = "https://www.linkedin.com/in/hasini-sandamini-47bb513a5";
 const EMAIL = "sandaminigamage12@gmail.com";
@@ -94,6 +94,15 @@ const skillCategories = [
     ],
   },
   {
+    title: "Mobile Development",
+    Icon: Phone,
+    items: [
+      { name: "Android", Icon: Phone },
+      { name: "Java", Icon: Coffee },
+      { name: "Kotlin", Icon: Phone },
+    ],
+  },
+  {
     title: "Tools",
     Icon: Terminal,
     items: [
@@ -102,6 +111,45 @@ const skillCategories = [
       { name: "VS Code", Icon: FileCode2 },
       { name: "Figma", Icon: Figma },
       { name: "Postman", Icon: Send },
+    ],
+  },
+];
+
+// Additional skill categories requested
+const extraSkillCategories = [
+  {
+    title: "Languages",
+    Icon: Code2,
+    items: [
+      { name: "JavaScript", Icon: Code2 },
+      { name: "TypeScript", Icon: Code2 },
+      { name: "PHP", Icon: Code2 },
+      { name: "Java", Icon: Coffee },
+      { name: "Python", Icon: Code2 },
+      { name: "HTML", Icon: Globe },
+      { name: "CSS", Icon: Layers },
+    ],
+  },
+  {
+    title: "Software Engineering",
+    Icon: Layers,
+    items: [
+      { name: "OOP", Icon: Check },
+      { name: "MVC Architecture", Icon: MapPin },
+      { name: "SDLC", Icon: FileCode2 },
+      { name: "Design Patterns", Icon: Sparkles },
+      { name: "Data Structures & Algorithms", Icon: Atom },
+    ],
+  },
+  {
+    title: "Professional Skills",
+    Icon: Star,
+    items: [
+      { name: "Adaptability - 95%", Icon: Star },
+      { name: "Teamwork - 95%", Icon: Star },
+      { name: "Innovation - 90%", Icon: Star },
+      { name: "Creativity - 85%", Icon: Star },
+      { name: "Time Management - 85%", Icon: Star },
     ],
   },
 ];
@@ -329,6 +377,7 @@ const javaExperience: ExperienceItem[] = [
 ];
 
 function Portfolio() {
+  useScrollReveal();
   return (
     <div className="min-h-screen">
       <Nav />
@@ -342,6 +391,24 @@ function Portfolio() {
     </div>
   );
 }
+
+// Simple scroll reveal hook (adds 'revealed' class)
+function useScrollReveal() {
+  useEffect(() => {
+    const obs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => {
+          if (e.isIntersecting) e.target.classList.add("revealed");
+        });
+      },
+      { threshold: 0.12 }
+    );
+    document.querySelectorAll(".reveal").forEach((el) => obs.observe(el));
+    return () => obs.disconnect();
+  }, []);
+}
+
+// Attach reveal globally
 
 function useTheme() {
   const [isDark, setIsDark] = useState(true);
@@ -417,31 +484,51 @@ function Nav() {
 }
 
 function Hero() {
+  const titles = [
+    "Web Developer",
+    "Full-Stack Developer",
+    "MERN Stack Developer",
+    "Frontend Developer",
+    "Backend Developer",
+  ];
+
+  function useTyping(words: string[], speed = 80, pause = 1800) {
+    const [text, setText] = useState("");
+    const [index, setIndex] = useState(0);
+    const [deleting, setDeleting] = useState(false);
+
+    useEffect(() => {
+      let timeout: any;
+      const word = words[index % words.length];
+
+      if (!deleting) {
+        timeout = setTimeout(() => setText(word.slice(0, text.length + 1)), speed);
+        if (text === word) timeout = setTimeout(() => setDeleting(true), pause);
+      } else {
+        timeout = setTimeout(() => setText(word.slice(0, text.length - 1)), speed / 1.5);
+        if (text === "") {
+          setDeleting(false);
+          setIndex((i) => i + 1);
+        }
+      }
+
+      return () => clearTimeout(timeout);
+    }, [text, deleting, index]);
+
+    return text;
+  }
+
+  const typed = useTyping(titles);
   return (
-    <section id="home" className="relative pt-32 pb-20 px-6">
-      <div className="mx-auto max-w-6xl grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center animate-fade-in">
+    <section id="home" className="relative pt-32 pb-20 px-6 overflow-hidden">
+      <div className="hero-bg absolute inset-0 -z-10" />
+      <div className="mx-auto max-w-6xl grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center reveal">
         {/* Photo */}
-        <div className="relative mx-auto md:mx-0">
-          <div
-            className="absolute inset-0 rounded-full blur-2xl opacity-60"
-            style={{
-              background:
-                "radial-gradient(circle, color-mix(in oklab, var(--primary) 60%, transparent), transparent 70%)",
-            }}
-          />
-          <div
-            className="relative rounded-full p-[3px]"
-            style={{
-              background:
-                "conic-gradient(from 180deg at 50% 50%, var(--primary), transparent, var(--primary))",
-            }}
-          >
-            <img
-              src={PHOTO}
-              alt={NAME}
-              className="size-[150px] md:size-[200px] rounded-full object-cover bg-background border-4 border-background"
-              loading="eager"
-            />
+        <div className="relative mx-auto md:mx-0 flex items-center">
+          <div className="profile-wrap relative">
+            <div className="profile-border" />
+            <img src={PHOTO} alt={NAME} className="profile-photo" loading="eager" />
+            <div className="profile-glow" />
           </div>
         </div>
 
@@ -462,6 +549,10 @@ function Hero() {
             experiences. I love turning ideas into real products using modern
             full-stack technologies.
           </p>
+          <div className="mt-4 text-primary font-medium flex items-center gap-2 md:justify-start justify-center">
+            <span className="typing">{typed}</span>
+            <span className="cursor">|</span>
+          </div>
           <div className="mt-8 flex flex-wrap justify-center md:justify-start gap-3">
             <a
               href="#projects"
@@ -549,6 +640,20 @@ function About() {
               professionals, and take the next step toward becoming a
               full-stack developer.
             </p>
+            <div className="mt-6">
+              <div className="grid sm:grid-cols-3 gap-4">
+                {[
+                  { label: "Major Projects", value: "6+" },
+                  { label: "Technologies", value: "10+" },
+                  { label: "Dedication", value: "100%" },
+                ].map((s) => (
+                  <div key={s.label} className="rounded-2xl border border-border bg-card p-6 text-center">
+                    <div className="text-3xl md:text-4xl font-bold text-primary">{s.value}</div>
+                    <div className="text-sm text-muted-foreground mt-1">{s.label}</div>
+                  </div>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -566,7 +671,7 @@ function Skills() {
           subtitle="Technologies I work with"
         />
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {skillCategories.map(({ title, Icon: CatIcon, items }) => (
+          {[...skillCategories, ...extraSkillCategories].map(({ title, Icon: CatIcon, items }) => (
             <div
               key={title}
               className="rounded-2xl border border-border bg-card/60 backdrop-blur p-5 card-hover"
@@ -577,16 +682,31 @@ function Skills() {
                 </div>
                 <h3 className="text-base font-bold">{title}</h3>
               </div>
-              <div className="flex flex-wrap gap-2">
-                {items.map(({ name, Icon }) => (
-                  <span
-                    key={name}
-                    className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-2.5 py-1 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
-                  >
-                    <Icon className="size-3 text-primary group-hover:scale-110 transition-transform" />
-                    {name}
-                  </span>
-                ))}
+              <div className="flex flex-col gap-3">
+                <div className="flex flex-wrap gap-2">
+                  {items.map(({ name, Icon }) => (
+                    <span
+                      key={name}
+                      className="group inline-flex items-center gap-1.5 rounded-full border border-border bg-background/50 px-2.5 py-1 text-xs font-medium hover:border-primary hover:bg-primary/10 hover:text-primary hover:-translate-y-0.5 transition-all cursor-default"
+                    >
+                      <Icon className="size-3 text-primary group-hover:scale-110 transition-transform" />
+                      {name}
+                    </span>
+                  ))}
+                </div>
+                {title === "Professional Skills" && (
+                  <div className="mt-2 space-y-2">
+                    {[{k: 'Adaptability', v:95},{k:'Teamwork',v:95},{k:'Innovation',v:90},{k:'Creativity',v:85},{k:'Time Management',v:85}].map((p) => (
+                      <div key={p.k}>
+                        <div className="flex items-center justify-between text-xs text-muted-foreground mb-1">
+                          <span>{p.k}</span>
+                          <span className="font-semibold">{p.v}%</span>
+                        </div>
+                        <div className="skill-progress"><i style={{ width: `${p.v}%` }} /></div>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
           ))}
@@ -740,7 +860,7 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
 
 function ExperienceCard({ item }: { item: ExperienceItem }) {
   return (
-    <div className="rounded-2xl border border-border bg-card p-6 card-hover">
+    <div className="rounded-2xl border border-border bg-card p-6 experience-card" style={{ borderColor: `${item.tech[0] ? techColors[item.tech[0]] || '#00d4ff' : '#00d4ff'}33` }}>
       <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1">
         <h4 className="text-lg font-bold text-primary">{item.role}</h4>
         <span className="text-xs font-semibold text-muted-foreground">{item.year}</span>
@@ -783,6 +903,15 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
             </span>
           );
         })}
+      </div>
+
+      <div className="mt-6 flex gap-2">
+        <a href={item.github || "#"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:opacity-95 transition-colors">
+          <Github className="size-4" /> View Code
+        </a>
+        <a href="#" className="inline-flex items-center gap-2 rounded-md border border-primary text-xs font-semibold px-3 py-2 hover:bg-primary/5 transition-colors">
+          <FileCode2 className="size-4" /> Case Study
+        </a>
       </div>
     </div>
   );

@@ -118,3 +118,39 @@
     box-shadow: var(--shadow-glow);
   }
 }
+
+/* Hero profile photo styles */
+.profile-wrap { position: relative; width: 200px; height: 200px; display: inline-block; }
+.profile-photo { width: 180px; height: 180px; border-radius: 9999px; object-fit: cover; display: block; position: relative; z-index: 10; margin: 0 auto; box-shadow: 0 8px 24px rgba(0,0,0,0.35); border: 6px solid transparent; }
+.profile-border { position: absolute; inset: 0; display: block; border-radius: 9999px; z-index: 5; transform: translate(-4px, -4px); background: radial-gradient(circle at center, rgba(0,212,255,0.25), transparent 50%); filter: blur(8px); animation: pulse-border 2.8s infinite; }
+.profile-glow { position: absolute; inset: -12px; z-index: 2; border-radius: 9999px; background: linear-gradient(90deg, rgba(0,212,255,0.08), rgba(10,10,35,0)); filter: blur(18px); }
+
+@keyframes pulse-border {
+  0% { transform: scale(0.98); opacity: 0.9; }
+  50% { transform: scale(1.02); opacity: 1; }
+  100% { transform: scale(0.98); opacity: 0.9; }
+}
+
+/* Typing effect */
+.typing { min-width: 220px; display: inline-block; }
+.cursor { display: inline-block; animation: blink 1s steps(2, start) infinite; }
+@keyframes blink { 0%, 49% { opacity: 1 } 50%, 100% { opacity: 0 } }
+
+/* Hero animated background */
+.hero-bg { background: linear-gradient(120deg, #0a0a23 0%, #07102a 30%, #00121a 60%, #0a0a23 100%); opacity: 0.9; background-size: 400% 400%; animation: gradientMove 18s linear infinite; filter: contrast(1.05) brightness(0.95); }
+@keyframes gradientMove { 0% { background-position: 0% 50% } 50% { background-position: 100% 50% } 100% { background-position: 0% 50% } }
+
+/* Scroll reveal (fade/slide) */
+.reveal { opacity: 0; transform: translateY(12px); transition: opacity 0.7s ease, transform 0.7s ease; }
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+
+/* Simple utility for accent glow */
+.accent-glow { box-shadow: 0 6px 30px rgba(0,212,255,0.12); }
+
+/* Skills/progress bars */
+.skill-progress { height: 10px; background: rgba(255,255,255,0.06); border-radius: 9999px; overflow: hidden; }
+.skill-progress > i { display: block; height: 100%; background: linear-gradient(90deg, #00d4ff, #3b82f6); width: 0%; transition: width 1.2s cubic-bezier(.2,.9,.2,1); }
+
+/* Experience card lift */
+.experience-card { transition: transform 0.25s ease, box-shadow 0.25s ease; }
+.experience-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-glow); }
