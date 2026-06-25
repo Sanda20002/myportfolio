@@ -35,6 +35,7 @@ import {
 } from "lucide-react";
 
 import { AnimatedBackground } from "../components/AnimatedBackground";
+import { ProfilePhoto } from "../components/ProfilePhoto";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -529,11 +530,7 @@ function Hero() {
       <div className="mx-auto max-w-6xl grid md:grid-cols-[auto_1fr] gap-10 md:gap-14 items-center reveal">
         {/* Photo */}
         <div className="relative mx-auto md:mx-0 flex items-center">
-          <div className="profile-wrap relative">
-            <div className="profile-border" />
-            <img src={PHOTO} alt={NAME} className="profile-photo" loading="eager" />
-            <div className="profile-glow" />
-          </div>
+          <ProfilePhoto imageSrc={PHOTO} alt={NAME} />
         </div>
 
         {/* Text */}
