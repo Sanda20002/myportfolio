@@ -274,6 +274,7 @@ type ExperienceItem = {
   summary: string;
   contributions: string[];
   tech: string[];
+  github: string;
 };
 
 const fullStackExperience: ExperienceItem[] = [
@@ -293,6 +294,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Created REST APIs using Next.js API Routes",
     ],
     tech: ["Next.js", "React", "TypeScript", "PostgreSQL", "Supabase", "Tailwind CSS"],
+    github: "https://github.com/Sanda20002/UNIHUB",
   },
   {
     role: "Full-Stack Developer",
@@ -310,6 +312,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Built REST APIs using Spring Boot",
     ],
     tech: ["Spring Boot", "Java 17", "MongoDB", "React", "OAuth2.0", "JWT"],
+    github: "https://github.com/Sanda20002/smartspace",
   },
   {
     role: "Full-Stack / IoT Developer",
@@ -326,6 +329,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Supported Gmail-based notification flows",
     ],
     tech: ["MongoDB", "Express", "React", "Node.js", "JWT", "Stripe", "IoT"],
+    github: "https://github.com/Sanda20002/FarmNex",
   },
   {
     role: "Full-Stack Developer",
@@ -340,6 +344,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Created transaction history for each user",
     ],
     tech: ["React", "Node.js", "Express", "MongoDB", "JWT", "CSS3"],
+    github: "https://github.com/Sanda20002/Library-Book-Tracking-System",
   },
   {
     role: "Full-Stack Developer",
@@ -355,6 +360,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Created user authentication and property search",
     ],
     tech: ["PHP", "MySQL", "JavaScript", "HTML5", "CSS3"],
+    github: "https://github.com/Sanda20002/Online-Property-Sales_System",
   },
 ];
 
@@ -376,6 +382,7 @@ const javaExperience: ExperienceItem[] = [
       "Designed responsive UI using HTML, CSS, and JavaScript",
     ],
     tech: ["Java", "J2EE", "Servlet", "JSP", "MySQL", "JDBC", "HTML5", "CSS3", "JavaScript"],
+    github: "https://github.com/Sanda20002/QuestionBank2",
   },
 ];
 
@@ -978,11 +985,8 @@ function ExperienceCard({ item }: { item: ExperienceItem }) {
       </div>
 
       <div className="mt-6 flex gap-2">
-        <a href={item.github || "#"} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:opacity-95 transition-colors">
+        <a href={item.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-md bg-primary px-3 py-2 text-xs font-semibold text-primary-foreground hover:opacity-95 transition-colors">
           <Github className="size-4" /> View Code
-        </a>
-        <a href="#" className="inline-flex items-center gap-2 rounded-md border border-primary text-xs font-semibold px-3 py-2 hover:bg-primary/5 transition-colors">
-          <FileCode2 className="size-4" /> Case Study
         </a>
       </div>
     </div>
