@@ -645,7 +645,7 @@ function About() {
               <div className="grid sm:grid-cols-3 gap-4">
                 {[
                   { label: "Major Projects", value: "6+" },
-                  { label: "Technologies", value: "10+" },
+                  { label: "Technologies", value: "5+" },
                   { label: "Dedication", value: "100%" },
                 ].map((s) => (
                   <div key={s.label} className="rounded-2xl border border-border bg-card p-6 text-center">
