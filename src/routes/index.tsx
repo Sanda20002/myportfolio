@@ -210,7 +210,7 @@ const projects: Project[] = [
     description:
       "Web-based system for managing facility bookings and maintenance incidents for university campuses.",
     tech: ["Spring Boot", "Java 17", "MongoDB", "React", "OAuth2", "JWT"],
-    github: "https://github.com/Sanda20002/smartspace",
+    github: "https://github.com/Sanda20002/PAF_SmartSpace",
     accent: "#F59E0B",
   },
   {
@@ -341,7 +341,7 @@ const fullStackExperience: ExperienceItem[] = [
       "Built REST APIs using Spring Boot",
     ],
     tech: ["Spring Boot", "Java 17", "MongoDB", "React", "OAuth2.0", "JWT"],
-    github: "https://github.com/Sanda20002/smartspace",
+    github: "https://github.com/Sanda20002/PAF_SmartSpace",
   },
   {
     role: "Full-Stack / IoT Developer",
