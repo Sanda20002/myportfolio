@@ -178,6 +178,7 @@ type Project = {
   featured?: boolean;
   accent: string;
   icon?: string;
+  image?: string;
   features?: string[];
   demoUrl?: string;
 };
@@ -250,6 +251,7 @@ const projects: Project[] = [
     github: "https://github.com/Sanda20002/HabitTracker",
     accent: "#00d4ff",
     icon: "📱",
+    image: "/glowmind.png",
     features: [
       "Onboarding with step-by-step introduction",
       "Authentication with credential caching",
@@ -893,42 +895,73 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
       className="group flex flex-col rounded-2xl border border-border bg-card overflow-hidden card-hover transition-all duration-300 hover:-translate-y-1"
       style={{ borderColor: `${project.accent}25` }}
     >
-      <div
-        className="relative h-36 flex flex-col justify-center px-5 overflow-hidden"
-        style={{
-          background: `linear-gradient(135deg, ${project.accent}25 0%, ${project.accent}10 50%, transparent 100%)`,
-        }}
-      >
-        <div
-          className="absolute inset-0 opacity-20"
-          style={{
-            background: `radial-gradient(circle at top right, ${project.accent}, transparent 60%)`,
-          }}
-        />
-        <div className="relative z-10">
-          <div className="flex items-start justify-between gap-3">
-            <div className="min-w-0">
-              <h3 className="text-lg font-bold leading-tight truncate flex items-center gap-1.5" style={{ color: project.accent }}>
-                {project.icon && <span className="text-xl shrink-0">{project.icon}</span>}
-                <span className="truncate">{project.title}</span>
-              </h3>
-              {project.subtitle && (
-                <p className="text-xs font-medium text-muted-foreground mt-0.5 truncate">
-                  {project.subtitle}
-                </p>
-              )}
-            </div>
-            {project.featured && (
-              <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
-                <Star className="size-3" /> Featured
-              </span>
+      {/* Card header — image if available, else gradient */}
+      {project.image ? (
+        <div className="relative overflow-hidden" style={{ borderBottom: `2px solid ${project.accent}30` }}>
+          <img
+            src={project.image}
+            alt={`${project.title} screenshot`}
+            className="w-full h-48 object-cover object-top transition-transform duration-500 group-hover:scale-105"
+          />
+          {/* Overlay with title */}
+          <div
+            className="absolute inset-0 flex flex-col justify-end px-4 pb-3"
+            style={{
+              background: `linear-gradient(to top, ${project.accent}CC 0%, transparent 55%)`,
+            }}
+          >
+            <h3 className="text-base font-bold text-white drop-shadow flex items-center gap-1.5 leading-tight">
+              {project.icon && <span className="text-lg shrink-0">{project.icon}</span>}
+              <span>{project.title}</span>
+            </h3>
+            {project.subtitle && (
+              <p className="text-[11px] text-white/80 mt-0.5">{project.subtitle}</p>
             )}
           </div>
-          <p className="mt-2 text-[10px] text-muted-foreground">
-            #{String(index + 1).padStart(2, "0")}
-          </p>
+          {project.featured && (
+            <span className="absolute top-2 right-2 inline-flex items-center gap-1 rounded-full bg-amber-500/90 text-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider shadow">
+              <Star className="size-3" /> Featured
+            </span>
+          )}
         </div>
-      </div>
+      ) : (
+        <div
+          className="relative h-36 flex flex-col justify-center px-5 overflow-hidden"
+          style={{
+            background: `linear-gradient(135deg, ${project.accent}25 0%, ${project.accent}10 50%, transparent 100%)`,
+          }}
+        >
+          <div
+            className="absolute inset-0 opacity-20"
+            style={{
+              background: `radial-gradient(circle at top right, ${project.accent}, transparent 60%)`,
+            }}
+          />
+          <div className="relative z-10">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <h3 className="text-lg font-bold leading-tight truncate flex items-center gap-1.5" style={{ color: project.accent }}>
+                  {project.icon && <span className="text-xl shrink-0">{project.icon}</span>}
+                  <span className="truncate">{project.title}</span>
+                </h3>
+                {project.subtitle && (
+                  <p className="text-xs font-medium text-muted-foreground mt-0.5 truncate">
+                    {project.subtitle}
+                  </p>
+                )}
+              </div>
+              {project.featured && (
+                <span className="inline-flex shrink-0 items-center gap-1 rounded-full bg-amber-500/20 text-amber-400 px-2 py-1 text-[10px] font-bold uppercase tracking-wider border border-amber-500/30">
+                  <Star className="size-3" /> Featured
+                </span>
+              )}
+            </div>
+            <p className="mt-2 text-[10px] text-muted-foreground">
+              #{String(index + 1).padStart(2, "0")}
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="p-5 flex flex-col flex-1">
         <span
