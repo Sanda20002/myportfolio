@@ -164,6 +164,7 @@ const FILTERS = [
   "MERN STACK",
   "JAVA",
   "PHP / DATABASES",
+  "MOBILE (ANDROID)",
 ] as const;
 type Filter = (typeof FILTERS)[number];
 
@@ -176,6 +177,9 @@ type Project = {
   github: string;
   featured?: boolean;
   accent: string;
+  icon?: string;
+  features?: string[];
+  demoUrl?: string;
 };
 
 const projects: Project[] = [
@@ -236,6 +240,27 @@ const projects: Project[] = [
     github: "https://github.com/Sanda20002/QuestionBank2",
     accent: "#EF4444",
   },
+  {
+    title: "GlowMind",
+    subtitle: "Daily Wellness & Mood Tracker",
+    category: "MOBILE (ANDROID)",
+    description:
+      "A native Android application designed to help users establish healthy habits, journal daily moods, and track overall wellness.",
+    tech: ["Kotlin", "Android", "Room", "Material Design"],
+    github: "https://github.com/Sanda20002/HabitTracker",
+    accent: "#00d4ff",
+    icon: "📱",
+    features: [
+      "Onboarding with step-by-step introduction",
+      "Authentication with credential caching",
+      "Comprehensive health profile with BMI calculator",
+      "Interactive habit tracker with circular progress",
+      "Mood journal with emoji logging and calendar view",
+      "Smart hydration reminders with background alarms",
+      "Home screen widget showing daily progress",
+    ],
+    demoUrl: "Not applicable",
+  },
 ];
 
 const techColors: Record<string, string> = {
@@ -264,6 +289,10 @@ const techColors: Record<string, string> = {
   CSS3: "#1572B6",
   Eclipse: "#2C2255",
   IoT: "#00d4ff",
+  Kotlin: "#7F52FF",
+  Android: "#3DDC84",
+  Room: "#4285F4",
+  "Material Design": "#FF1744",
 };
 
 type ExperienceItem = {
@@ -382,7 +411,27 @@ const javaExperience: ExperienceItem[] = [
       "Designed responsive UI using HTML, CSS, and JavaScript",
     ],
     tech: ["Java", "J2EE", "Servlet", "JSP", "MySQL", "JDBC", "HTML5", "CSS3", "JavaScript"],
-    github: "https://github.com/Sanda20002/QuestionBank2",
+  },
+];
+
+const mobileExperience: ExperienceItem[] = [
+  {
+    role: "Mobile App Developer",
+    project: "GlowMind - Daily Wellness & Mood Tracker",
+    year: "2026",
+    focus: "Habit Tracking, Mood Journaling, Hydration Reminders, AlarmManager, Room Database",
+    summary:
+      "Developed a native Android application designed to help users establish healthy habits, journal daily moods, and maintain mental and physical wellness.",
+    contributions: [
+      "Implemented interactive habit tracker with circular progress",
+      "Built mood journal with emoji logging and calendar view",
+      "Designed smart hydration reminders using AlarmManager & BroadcastReceiver",
+      "Created home screen widget showing daily progress",
+      "Developed comprehensive health profile with BMI calculator",
+      "Implemented onboarding flow and credential caching",
+    ],
+    tech: ["Kotlin", "Android", "Room", "Material Design"],
+    github: "https://github.com/Sanda20002/HabitTracker",
   },
 ];
 
@@ -859,8 +908,9 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
         <div className="relative z-10">
           <div className="flex items-start justify-between gap-3">
             <div className="min-w-0">
-              <h3 className="text-lg font-bold leading-tight truncate" style={{ color: project.accent }}>
-                {project.title}
+              <h3 className="text-lg font-bold leading-tight truncate flex items-center gap-1.5" style={{ color: project.accent }}>
+                {project.icon && <span className="text-xl shrink-0">{project.icon}</span>}
+                <span className="truncate">{project.title}</span>
               </h3>
               {project.subtitle && (
                 <p className="text-xs font-medium text-muted-foreground mt-0.5 truncate">
@@ -896,6 +946,17 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           {project.description}
         </p>
 
+        {project.features && project.features.length > 0 && (
+          <ul className="text-xs text-muted-foreground space-y-1.5 mb-4">
+            {project.features.map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-1.5">
+                <span className="shrink-0 text-emerald-400">✅</span>
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+
         <div className="flex flex-wrap gap-1.5 mb-4">
           {project.tech.map((t) => {
             const color = techColors[t] || "#00d4ff";
@@ -925,12 +986,25 @@ function ProjectCard({ project, index }: { project: Project; index: number }) {
           >
             <Github className="size-4" /> GitHub
           </a>
-          <button
-            disabled
-            className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold bg-muted text-muted-foreground cursor-not-allowed opacity-60"
-          >
-            <ExternalLink className="size-4" /> Coming Soon
-          </button>
+          {project.demoUrl !== "Not applicable" && (
+            project.demoUrl ? (
+              <a
+                href={project.demoUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg bg-primary text-primary-foreground px-3 py-2 text-xs font-semibold hover:bg-primary/90 transition-colors"
+              >
+                <ExternalLink className="size-4" /> Live Demo
+              </a>
+            ) : (
+              <button
+                disabled
+                className="inline-flex items-center justify-center gap-1.5 flex-1 rounded-lg px-3 py-2 text-xs font-semibold bg-muted text-muted-foreground cursor-not-allowed opacity-60"
+              >
+                <ExternalLink className="size-4" /> Coming Soon
+              </button>
+            )
+          )}
         </div>
       </div>
     </article>
@@ -1027,6 +1101,22 @@ function Experience() {
             </div>
             <div className="grid md:grid-cols-2 gap-5">
               {javaExperience.map((item) => (
+                <ExperienceCard key={item.project} item={item} />
+              ))}
+            </div>
+          </div>
+
+          {/* Mobile */}
+          <div>
+            <div className="flex items-center gap-3 mb-6">
+              <span className="text-2xl">📱</span>
+              <h3 className="text-xl md:text-2xl font-bold tracking-tight">
+                MOBILE APPLICATION DEVELOPMENT
+              </h3>
+              <div className="flex-1 h-px bg-gradient-to-r from-primary/40 to-transparent" />
+            </div>
+            <div className="grid md:grid-cols-2 gap-5">
+              {mobileExperience.map((item) => (
                 <ExperienceCard key={item.project} item={item} />
               ))}
             </div>
