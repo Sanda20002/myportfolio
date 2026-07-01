@@ -698,6 +698,14 @@ function Hero() {
             >
               Contact Me
             </a>
+            <a
+              href="/G%20P%20G%20H%20S%20GAMAGE%20-%20CV.pdf"
+              download="G P G H S GAMAGE - CV.pdf"
+              className="inline-flex items-center gap-2 rounded-full border border-primary/60 bg-primary/10 text-primary px-6 py-3 text-sm font-semibold hover:bg-primary/20 hover:scale-105 transition-all"
+            >
+              <Download className="size-4" />
+              Download CV
+            </a>
           </div>
           <div className="mt-8 flex justify-center md:justify-start gap-5 text-muted-foreground">
             <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub" className="hover:text-primary hover:scale-110 transition-all">
