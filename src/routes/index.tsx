@@ -309,7 +309,7 @@ const projects: Project[] = [
       "Connected application with database using JDBC",
       "Designed responsive UI using HTML, CSS, and JavaScript",
     ],
-    github: "https://github.com/Sanda20002/QuestionBank2",
+    github: "https://github.com/Sanda20002/QuestionBank",
     accent: "#EF4444",
     demoUrl: "Not applicable",
   },
