@@ -36,6 +36,8 @@ import {
 
 import { AnimatedBackground } from "../components/AnimatedBackground";
 import { ProfilePhoto } from "../components/ProfilePhoto";
+import { sendContactMessage } from "../lib/api/contact.functions";
+import { CONTACT_EMAIL as EMAIL, buildContactMailtoHref } from "../lib/contact";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,8 +63,6 @@ const NAME = "Hasini Sandamini";
 const PHOTO = "https://i.postimg.cc/rwp88rQ7/Whats-App-Image-2026-06-24-at-22-02-34.jpg";
 const GITHUB_URL = "https://github.com/Sanda20002";
 const LINKEDIN_URL = "https://www.linkedin.com/in/hasini-sandamini-47bb513a5";
-const EMAIL = "sandaminigamage12@gmail.com";
-
 const skillCategories = [
   {
     title: "Frontend",
@@ -1245,6 +1245,8 @@ function Contact() {
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [submitted, setSubmitted] = useState(false);
+  const [sending, setSending] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const details = [
     { Icon: User, label: "Name", value: "G P G Hasini Sandamini Gamage" },
@@ -1264,12 +1266,31 @@ function Contact() {
     return Object.keys(next).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!validate()) return;
-    setSubmitted(true);
-    setForm({ name: "", email: "", subject: "", message: "" });
-    setTimeout(() => setSubmitted(false), 4000);
+
+    setSending(true);
+    setSubmitError(null);
+
+    try {
+      const result = await sendContactMessage({ data: form });
+
+      if (result.ok) {
+        setSubmitted(true);
+        setForm({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitted(false), 4000);
+      } else if (typeof window !== "undefined") {
+        window.location.href = result.fallbackMailto ?? buildContactMailtoHref(form);
+        setSubmitted(true);
+        setForm({ name: "", email: "", subject: "", message: "" });
+        setTimeout(() => setSubmitted(false), 4000);
+      }
+    } catch {
+      setSubmitError("Unable to send right now. Please use the email link below.");
+    } finally {
+      setSending(false);
+    }
   };
 
   const inputCls =
@@ -1331,13 +1352,15 @@ function Contact() {
               </div>
               <button
                 type="submit"
+                disabled={sending}
                 className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground transition-all hover:bg-primary/90 hover:scale-[1.01] glow-shadow"
               >
-                <Send className="size-4" /> Send Message
+                <Send className="size-4" /> {sending ? "Sending..." : "Send Message"}
               </button>
               {submitted && (
                 <p className="text-center text-sm text-primary">Thanks! Your message has been sent.</p>
               )}
+              {submitError && <p className="text-center text-sm text-destructive">{submitError}</p>}
             </form>
           </div>
 
